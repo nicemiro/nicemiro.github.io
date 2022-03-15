@@ -28,9 +28,14 @@
                                 <span style="font-size:medium;"> {{page.titleEn | escape }} </span>
                                 {% endif %}
                             </h1>
+                            
                         {% endif %}
-
                         {{ content }}
+
+                        {% unless page.title %}
+                            {%- include update.html -%}            
+                        {% endunless %}
+                        
                     </section>
                 </div>
 
