@@ -46,8 +46,8 @@
             <li class="divider"></li>
 
             {% for category in site.categories %}
-            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}/pages/categories/{{category | first}}">
-                <a href="{{site.baseurl}}/pages/categories/{{category | first}}">
+            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}/pages/categories/{{category | first | downcase}}">
+                <a href="{{site.baseurl}}/pages/categories/{{category | first | downcase}}">
                 {{ category | first }}
                 </a>
             </li>
