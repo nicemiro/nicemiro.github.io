@@ -25,8 +25,8 @@ babyK@macbook ~ % brew install ruby
 ```
 <br>
 #### bundler, jekyll 설치
-Jekyll은 정적 사이트 빌더 (Static site builder)로 [Liquid][1] language를 사용하여 만들어졌다.  
-[Liquid][1] 태그와 문법이 기존의 HTML마크업 언어와는 조금 다르지만 사용하기 편리하고 가독성이 꽤 괜찮은 듯.  
+Jekyll은 정적 사이트 빌더 (Static site builder)로 Ruby언어를 사용하여 만들어졌다.
+사용되는 [Liquid][1] 태그와 문법이 기존의 HTML마크업 언어와는 조금 다르지만 쓰다보면 익숙해진다. (개인적으로 그닥 편하다고 느끼지는 않는다;;)
 Github의 공동 설립자가 만들었으므로 당연하게도 Github page에 default로 적용되어 사용되고 있다.  
 
 <br>
