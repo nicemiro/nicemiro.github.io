@@ -17,7 +17,11 @@ layout: post
 {% endfor %}
 </section>
 
-
+<section>
+{% for category in site.categories %}
+        {{category | first | downcase}}
+{% endfor %}
+</section>
 
 
 
