@@ -5,7 +5,6 @@ author: BabyK
 date: 2022-03-11
 category: Web
 layout: post
-permlink: /:category
 ---
 
 ### 환경설정 (Environment Setup)

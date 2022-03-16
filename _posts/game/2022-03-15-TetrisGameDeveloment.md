@@ -5,7 +5,6 @@ author: BabyK
 date: 2022-03-15
 category: Game
 layout: post
-permlink: /:category
 ---
 
 ### ON GOING
