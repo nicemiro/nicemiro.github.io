@@ -12,7 +12,7 @@ layout: post
 
 <section>
 {% for index in collection %}
-        <a href="{{site.baseurl}}{{index.url}}" name="{{ index.title}}">{{index.date | date : "%Y/%d/%m"}} - {{ index.title}}
+        <a href="{{site.baseurl}}{{index.url}}" name="{{ index.title}}">{{index.date | date : "%Y/%m/%d"}} - {{ index.title}}
         <span style="font-size:small" >( {{ index.titleEn }} )</span></a> <br>
 {% endfor %}
 </section>
