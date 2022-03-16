@@ -1,5 +1,5 @@
 ---
-title: Delegation Pattern (위임패턴) (1)
+title: Delegation Pattern (1)
 titleEn: Delegation Pattern in iOS (1)
 author: BabyK
 date: 2022-03-17
@@ -144,5 +144,6 @@ game.play()
 가이드를 이해했다면 실제 iOS개발시의 예시를 살펴보자.  
 다음 포스트에서.
 <br>
+
 
 [1]: https://docs.swift.org/swift-book/LanguageGuide/Protocols.html
