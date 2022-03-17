@@ -17,4 +17,4 @@ layout: post
 <a> {{site.baseurl}}/pages/categories/{{category | first | downcase}} </a> <br>
 <a>{{ category | first }} </a> <br>
 {% endfor %}
-</section>
+</section> 
