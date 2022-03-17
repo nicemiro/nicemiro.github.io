@@ -3,7 +3,7 @@ title: Delegation Pattern (1)
 titleEn: Delegation Pattern in iOS (1)
 author: BabyK
 date: 2022-03-17
-category: Ios
+category: iOS
 layout: post
 ---
 
@@ -76,7 +76,7 @@ class SnakesAndLadders: DiceGame {
 }
 ```
 
-그런데 두가지 프로토콜을 구현한 방법이 각각 조금 다르다. 
+그런데 두가지 프로토콜을 구현한 방법이 각각 조금 다르다.  
 주사위게임의 구현내용은 중요하지 않고 위임에 관련된 부분만 보자.  
 SnakesAndLadders 클래스는 `play()` 안에서 DiceGame 프로토콜의 기능은 상속한뒤 모두 구현하였으나
 DiceGameDelegate (위임자 프로토콜)에서 구현해야할 3가지 기능은 다른객체에게 위임했다.  
