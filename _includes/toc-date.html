@@ -1,4 +1,4 @@
- <div class="book-summary">
+<div class="book-summary">
     <div id="book-search-input" role="search">
         <input type="text" placeholder="Type to search" />
     </div>
@@ -22,7 +22,7 @@
                     {% assign reversed_posts = site[collection.label] | reverse %}
 
                     {% for post in reversed_posts %}
-                        {% if post.category == 'Jekyll' %}
+                        {% if post.category == "Jekyll" %}
                             {% if page.url == post.url %}
                             <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
                             {% else %}
