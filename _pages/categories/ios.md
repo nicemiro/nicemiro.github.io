@@ -17,7 +17,13 @@ layout: post
 {% endfor %}
 </section>
 
+<section>
+TEST<br>
+{% for category in site.categories %}
+<a> {{site.baseurl}}/pages/categories/{{category | first | downcase}}</a>
+<a href="{{site.baseurl}}/pages/categories/{{category | first | downcase}}">
+{{ category | first }}
+</a><br>
+{% endfor %}
 
-
-
-
+</section>
