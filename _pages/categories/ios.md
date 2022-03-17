@@ -7,7 +7,7 @@ layout: post
 ---
 
 {% assign title = page.title | escape %}
-{% assign collection = site.categories[ios] | reverse %}
+{% assign collection = site.categories['ios'] | reverse %}
 
 
 <section>
