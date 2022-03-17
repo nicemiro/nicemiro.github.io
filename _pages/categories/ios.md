@@ -7,7 +7,7 @@ layout: post
 ---
 
 {% assign title = page.title | first %}
-{% assign collection = site.categories[title] | reverse %}
+{% assign collection = site.categories['iOS'] | reverse %}
 
 
 <section>
