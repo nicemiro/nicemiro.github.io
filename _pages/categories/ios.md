@@ -11,8 +11,6 @@ layout: post
 
 <section>
 
-{{title}} <br>
-========== <br>
 {% for category in site.categories %}
 <a> {{site.baseurl}}/pages/categories/{{category | first | downcase}} </a> <br>
 <a>{{ category | first }} </a> <br>
