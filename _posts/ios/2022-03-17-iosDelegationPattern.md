@@ -1,6 +1,6 @@
 ---
-title: Delegation Pattern (위임패턴) (1)
-titleEn: Delegation Pattern in iOS (1)
+title: Delegation Pattern (위임패턴)(1)
+titleEn: Delegation Pattern in iOS(1)
 author: BabyK
 date: 2022-03-17
 category: ios
@@ -14,7 +14,6 @@ Delegation 패턴에 대한 애플의 [Swift][1]언어 가이드를 확인해보
 
 <br>
 > 'Delegation is a design pattern that enables a class or structure to hand off (or delegate) some of its responsibilities to an instance of another type. This design pattern is implemented by defining a protocol that encapsulates the delegated responsibilities, such that a conforming type (known as a delegate) is guaranteed to provide the functionality that has been delegated. Delegation can be used to respond to a particular action, or to retrieve data from an external source without needing to know the underlying type of that source.'
-
 <br>
 
 대충 한 클래스가 어떤 인스탄스에 대한 책임에서 손을 떼는 (다른놈에게 위임하는) 디자인 패턴인데  
@@ -23,6 +22,7 @@ Swift에서는 protocol을 사용해 구현하며 특정 액션 (흔히 버튼�
 protocol은 자바의 interface와 같다고 보면 되는데 자바 Swing 컴포넌트 사용시에도 버튼 이벤트 리스너 관련하여 위임 패턴을 사용했었다.
 
 <br>
+
 [Swift][1] 가이드문서의 예시를 살펴보자.
 
 ```swift
@@ -83,11 +83,13 @@ DiceGameDelegate (위임자 프로토콜)에서 구현해야할 3가지 기능�
 
 정리하자면 자기일을 떠넘기는 방법으로 
 1. DiceGame 프로토콜을 **상속하여 구현**했고,
+
 ```swift
 class SnakesAndLadders: DiceGame {
 ```
 
 2. DiceGameDelegate 프로토콜의 **변수를 선언**했고,  
+
 ```swift
 weak var delegate: DiceGameDelegate?
 ```
@@ -101,6 +103,7 @@ delegate?.gameDidEnd(self)
 ```
 
 <br>
+
 그럼 이제 Delegate 의 일을 대신해줄 Delegator 를 살펴보자.
 
 ```swift
