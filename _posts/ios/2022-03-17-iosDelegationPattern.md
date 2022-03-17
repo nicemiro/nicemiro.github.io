@@ -3,7 +3,7 @@ title: Delegation Pattern (1)
 titleEn: Delegation Pattern in iOS (1)
 author: BabyK
 date: 2022-03-17
-category: Ios
+category: ios
 layout: post
 ---
 
