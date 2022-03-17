@@ -3,7 +3,7 @@ title: Delegation Pattern (1)
 titleEn: Delegation Pattern in iOS (1)
 author: BabyK
 date: 2022-03-17
-category: iOS
+category: ios
 layout: post
 ---
 
@@ -17,7 +17,7 @@ Delegation 패턴에 대한 애플의 [Swift][1]언어 가이드를 확인해보
 
 <br>
 
-대충 한 클래스가 어떤 인스탄스에 대한 책임에서 손을 떼는 (다른놈에게 위임하는) 디자인 패턴인데  
+대충 한 클래스가 어떤 인스탄스에 대한 책임에서 손을 떼는 (다른 객체에게 위임하는) 디자인 패턴인데  
 Swift에서는 protocol을 사용해 구현하며 특정 액션 (흔히 버튼클릭) 에 반응하거나  
 외부소스에서 데이터를 편하게 가져오기 위해 사용된다고 한다.  
 protocol은 자바의 interface와 같다고 보면 되는데 자바 Swing 컴포넌트 사용시에도 버튼 이벤트 리스너 관련하여 위임 패턴을 사용했었다.
