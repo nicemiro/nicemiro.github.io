@@ -9,13 +9,12 @@ layout: post
 {% assign title = page.title | escape %}
 {% assign collection = site.categories[title] | reverse %}
 
-
 <section>
-TEST <br>
+
 {{title}} <br>
-TEST <br>
-{% for index in collection %}
-        <a href="{{site.baseurl}}{{index.url}}" name="{{ index.title}}">{{index.date | date : "%Y/%m/%d"}} - {{ index.title}}
-        <span style="font-size:small" >( {{ index.titleEn }} )</span></a> <br>
+========== <br>
+{% for category in site.categories %}
+<a> {{site.baseurl}}/pages/categories/{{category | first | downcase}} </a> <br>
+<a>{{ category | first }} </a> <br>
 {% endfor %}
 </section>
