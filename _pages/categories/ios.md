@@ -1,5 +1,5 @@
 ---
-title: ios
+title: iOS
 author: BabyK
 date: 2022-03-15
 category: Categories
