@@ -7,3 +7,7 @@ layout: post
 ---
 
 Software Developer
+
+<br>
+
+<img src="/img/fromThomasGrey.jpg" width="70%" height="auto" >
