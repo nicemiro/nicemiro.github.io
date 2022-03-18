@@ -7,7 +7,7 @@ category: iOS
 layout: post
 ---
 
-### Delegation Pattern
+### Delegation
 Delegation (위임) 이란 단어는 iOS 개발시 매우 흔하게 마주치게 되는 디자인패턴 용어이다.  
 생각해보니 아주 먼 그 옜날 자바 Swing 컴포넌트를 사용했던 학생시절 처음 용어를 접한 기억이 있다.  
 Delegation 패턴에 대한 애플의 [Swift][1]언어 가이드를 확인해보자. (protocols 에 대한 내용중)
