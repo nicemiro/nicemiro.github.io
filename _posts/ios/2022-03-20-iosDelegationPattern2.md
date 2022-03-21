@@ -100,22 +100,21 @@ FirstView 화면의 라벨 문구가 수정될 수 있다.
 <br>
 <br>
  
-<span style="font-size:200%">Why?</span>
+<span style="font-size:200%">왜 Delegation을 사용할까</span>
 
-애플의 [공식 문서][1]를 인용하자.
+Objective-C에 관한 내용이지만 애플의 [공식 문서][1]를 인용하자.
 >Delegation is a simple and powerful pattern in which one object in a program acts on behalf of, or in coordination with, another object. The delegating object keeps a reference to the other object—the delegate—and at the appropriate time sends a message to it. The message informs the delegate of an event that the delegating object is about to handle or has just handled. The delegate may respond to the message by updating the appearance or state of itself or other objects in the application, and in some cases it can return a value that affects how an impending event is handled. The main value of delegation is that it allows you to easily customize the behavior of several objects in one central object.
 
 <br>
-요약하자면 위임패턴의 장점은 
+요약하자면 위임패턴의 장점으로  
 - Delegate는 Delegator가 작업시 옵저버의 역할을 수행가능. Notification을 받거나 이후 행위 컨트롤이 가능함.
 - 여러 오브젝트의 행위를 한 곳에서 쉽게 수정 가능  
 
-공식문서의 (Objective-C 문서이지만) [memory management][2] 관련 내용을 살펴보면 retain cycle에 따른 문제 (예를들면 화면 전환된 이후 이전 화면의 메모리 해제)를 다루고 있는데  
-Swift에도 메모리 관리시의 유의사항이 있는 것 같다. 아마도 한 컨트롤러 내에서 다른 컨트롤러 객체를 띄우고 이것을 Delegation 패턴을 사용해 연결하는 것이 여기서 말하는 'Use Weak References to Avoid Retain Cycles' 의 한 종류가 아닐까 싶은데 이 부분은 따로 정리해 봐야 할 것 같다. Objective-C 도 따로 학습해야 하나....
+한 객체안의 기능들을 여러 오브젝트에서 사용하게 하고 싶을 때 상속을 통해 구현하게 된다면 부모 클래스의 모든 기능들을 일일이 신경써야 하고 리소스 또한 낭비가 생길 수 있다.  
 
+더 중요한 것은 문서상에서도 강조하듯이 여러 오브젝트(Delegate)들이 공유하는 기능들을 Delegator의 (프로토콜에 명시된) 펑션들만 수정하는 것으로 한방에 해결 할 수 있고 필요한 경우 Delegate의 소스 수정없이 Delegator를 교체 가능하다는 점. (Delegator 내에 구현된 펑션을 수정하고 Delegator안에서 본인 self를 Delegate에게 전달하기 때문에)  
+<br>
+여러가지 뷰에서 사용되는 같은 기능들을 delegator의 소스만 수정하면 모두 교체 가능하고 delegator에서 리턴되는 값(notification)을 이용해 delegate상에서 이벤트의 관찰 및 제어가 가능하다는 점을 기억하자.  
 <br>
 
-
-
 [1]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html
-[2]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-1000810
