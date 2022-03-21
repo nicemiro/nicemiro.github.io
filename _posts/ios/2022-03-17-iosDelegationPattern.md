@@ -37,7 +37,7 @@ protocol DiceGameDelegate: AnyObject {
 }
 ```
 
-두 개의 프로토콜을 정의했고 밑에 있는 DiceGameDelegate 프로토콜은 AnyObject를 상속함으로 [Class-Only 프로토콜][2]로 정의 되었다.
+두 개의 프로토콜을 정의했고 밑에 있는 DiceGameDelegate 프로토콜은 AnyObject를 상속(채택)함으로써 [Class-Only 프로토콜][2]로 정의 되었다.
 * [Class-Only 프로토콜][2]은 class 타입에서만 구현 가능하도록 제약하는것으로 protocol은 원래 class 이외에도 structure, emumeration 에서도 사용될 수 있는 것으로 보인다.
 
 <br>
@@ -82,7 +82,7 @@ class SnakesAndLadders: DiceGame {
 * *DiceGameDelegate* - 구현해야할 3가지 기능을 다른객체에게 위임함.  
 
 정리하자면 *SnakesAndLadders* 클래스는 자기일을 떠넘기는 방법으로  
-1.&nbsp;*DiceGame* 프로토콜을 **상속하여 구현**했고,
+1.&nbsp;*DiceGame* 프로토콜을 **채택하여 구현**했고,
 
 ```swift
 class SnakesAndLadders: DiceGame {
@@ -104,7 +104,7 @@ delegate?.gameDidEnd(self)
 
 <br>
 
-그럼 이제 Delegate 의 일을 대신해줄 Delegator 를 살펴보자.
+그럼 이제 Delegate 의 일을 대신해줄 Delegator 을 살펴보자.
 
 ```swift
 class DiceGameTracker: DiceGameDelegate {

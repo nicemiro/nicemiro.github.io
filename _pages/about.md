@@ -10,4 +10,4 @@ Software Developer
 
 <br>
 
-<img src="/img/fromThomasGrey.jpg" width="70%" height="auto" >
+<img src="/img/fromThomasGrey.jpg" width="100%" height="auto" >
