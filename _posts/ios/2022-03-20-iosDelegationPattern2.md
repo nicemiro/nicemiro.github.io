@@ -110,7 +110,6 @@ FirstView 화면의 라벨 문구가 수정될 수 있다.
 - Delegate는 Delegator가 작업시 옵저버의 역할을 수행가능. Notification을 받거나 이후 행위 컨트롤이 가능함.
 - 여러 오브젝트의 행위를 한 곳에서 쉽게 수정 가능  
 
-상속을 통해 구현하기에는 확장성의 문제와 미미하겠지만 모바일 기기의 리소스 가용 문제가 있을 것이기 때문에 라고 생각한다.  
 공식문서의 (Objective-C 문서이지만) [memory management][2] 관련 내용을 살펴보면 retain cycle에 따른 문제 (예를들면 화면 전환된 이후 이전 화면의 메모리 해제)를 다루고 있는데  
 Swift에도 메모리 관리시의 유의사항이 있는 것 같다. 아마도 한 컨트롤러 내에서 다른 컨트롤러 객체를 띄우고 이것을 Delegation 패턴을 사용해 연결하는 것이 여기서 말하는 'Use Weak References to Avoid Retain Cycles' 의 한 종류가 아닐까 싶은데 이 부분은 따로 정리해 봐야 할 것 같다. Objective-C 도 따로 학습해야 하나....
 
