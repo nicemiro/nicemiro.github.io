@@ -56,3 +56,5 @@ regenerate:       true
 plugins:
   - jekyll-feed
   - jemoji
+
+future: true
