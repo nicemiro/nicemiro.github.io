@@ -1,13 +1,13 @@
 ---
-title: Github Page 만들기
-titleEn: Creating a Github Pages for mac
+title: Github Page 만들기 (1)
+titleEn: Creating a Github Pages for mac (1)
 author: BabyK
 date: 2022-03-11
 category: Web
 layout: post
 ---
 
-### 환경설정 (Environment Setup)
+### Jekyll 환경설정 (Environment Setup)
 #### Ruby 설치  
 맥은 기본적으로 Ruby가 설치되어 있음.
 
@@ -24,9 +24,10 @@ babyK@macbook ~ % brew install ruby
 ```
 <br>
 #### bundler, jekyll 설치
-Jekyll은 정적 사이트 빌더 (Static site builder)로 Ruby언어를 사용하여 만들어졌다.
-사용되는 [Liquid][1] 태그와 문법이 기존의 HTML마크업 언어와는 조금 다르지만 쓰다보면 익숙해진다. (개인적으로 그닥 편하다고 느끼지는 않는다;;)
-Github의 공동 설립자가 만들었으므로 당연하게도 Github page에 default로 적용되어 사용되고 있다.  
+[Jekyll][2]은 Ruby언어를 사용하여 만들어진 정적 사이트 생성 툴(Static site builder)이며 [Liquid][1] 문법을 사용하여 웹페이지를 만들 수 있게 해준다.  
+Github의 공동 설립자가 만들었으며 Github page에 default로 적용되어 사용되고 있다.    
+정적 페이지이기 때문에 사용자가 미리 작성해 놓지 않으면 보여줄 수 없는 부분들도 있고 수정하다보면 차라리 이럴꺼면 HTML과 Javascript를 사용해서 그냥 새로 만드는게 낫지 않을까 하는 생각이 들때도 있지만  
+다른 유저들이 만들어 놓은 수많은 테마들을 적용하고 거기에서 또 사용자의 입맛에 맞게 조금씩 수정해 가는 재미가 있다.  
 
 <br>
 Bundler는 node js의 npm 같은 패키지 매니져인듯.
@@ -78,7 +79,7 @@ babyk@Ks-macbook gitRepo %
 <br>
 
 **서버 start**  
-처음 서버 실행시에는 'bundle exec jekeyll serve' 이후부터는 'jekyll serve'만 입력해도 됨.
+처음 서버 실행시에는 'bundle exec jekeyll serve' 를 입력하여 실행할 수 있고 이후부터는 'jekyll serve'만 입력해도 실행된다.
 ```terminal
 babyk@Ks-macbook testPage % bundle exec jekyll serve
 Configuration file: /Users/babyk/workspace/gitRepo/testPage/_config.yml
@@ -158,13 +159,16 @@ Configuration file: /Users/babyk/workspace/gitRepo/testPage/_config.yml
 
 <br>
 **웹페이지 확인**  
-디폴트 주소는 http://localhost:4000 포트변경시 'jekyll serve --port 0000'  
+디폴트 주소는 http://localhost:4000가 사용되며 포트변경시 'jekyll serve --port 0000' 와 같이 변경할 포트번호를 입력한다.
 
 <img src="/img/minimaPic.png" >
 
 <br>
 기본테마인 minima 가 적용되어 있다.  
-폰트 가독성과 화면구성이 꽤 훌륭한 테마라서 사이드메뉴 하나만 추가하고 사용해도 괜찮을 것 같다.
+폰트 가독성과 화면구성이 꽤 훌륭한 테마라서 사이드메뉴 하나만 추가하고 사용해도 괜찮을 것 같다.  
+Jekyll을 사용해 로컬에서 생성한 웹페이지를 Github 사이트에 올려 GithubPage에서 사용해보자.  
+다음 포스트에서.
 
 [1]: https://shopify.github.io/liquid/
+[2]: https://jekyllrb.com/
 
