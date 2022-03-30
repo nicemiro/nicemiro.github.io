@@ -129,7 +129,7 @@ class DiceGameTracker: DiceGameDelegate {
 특별한 내용은 없다.  
 *SnakesAndLadders* 클래스는 일을 하는척(프로토콜을 실행)하면서 self객체인 자기자신을 인자로 넘겨주고   
 일을 받은 *DiceGameTracker* 클래스는 *SnakeAndLadders* 객체를 인자로 받는 *DiceGameDelegate* 프로토콜의 기능을 대신 구현해주는 것이다.  
-정말 갑과을의 전형을 보여주는 눈물의 K 디자인패턴이라 볼 수 있다.  
+갑과을의 행위를 보여주는 눈물의 K 디자인패턴...
 
 <br>
 두 클래스의 실행부분을 보면
