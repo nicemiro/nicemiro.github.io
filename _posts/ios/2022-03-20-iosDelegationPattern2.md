@@ -12,7 +12,7 @@ layout: post
 <img src="/img/2022-03-20-iosDelegationPattern2_1.png" >
 
 버튼 클릭으로 화면을 이동하면서 라벨의 문구를 바꿔주는 예시이다.  
-실행 했을 때 첫 화면인 FirstView가 떠맡은 일을 해주는 Delegator이다. NextView가 일을 주는 Delegate.
+실행 했을 때 첫 화면인 FirstView가 떠맡은 일을 해주는 Delegate이다. NextView가 일을 주는 Delegate.
 
 ```swift
 protocol SendDataDelegate : AnyObject{
@@ -107,14 +107,14 @@ Objective-C에 관한 내용이지만 애플의 [공식 문서][1]를 인용하�
 
 <br>
 요약하자면 위임패턴의 장점으로  
-- Delegate는 Delegator가 작업시 옵저버의 역할을 수행가능. Notification을 받거나 이후 행위 컨트롤이 가능함.
+- Delegator는 Delegate이 작업시 옵저버의 역할을 수행가능. Notification을 받거나 이후 행위 컨트롤이 가능함.
 - 여러 오브젝트의 행위를 한 곳에서 쉽게 수정 가능  
 
 한 객체안의 기능들을 여러 오브젝트에서 사용하게 하고 싶을 때 상속을 통해 구현하게 된다면 부모 클래스의 모든 기능들을 일일이 신경써야 하고 리소스 또한 낭비가 생길 수 있다.  
 
-더 중요한 것은 문서상에서도 강조하듯이 여러 오브젝트(Delegate)들이 공유하는 기능들을 Delegator의 (프로토콜에 명시된) 펑션들만 수정하는 것으로 한방에 해결 할 수 있고 필요한 경우 Delegate의 소스 수정없이 Delegator를 교체 가능하다는 점. (Delegator 내에 구현된 펑션을 수정하고 Delegator안에서 본인 self를 Delegate에게 전달하기 때문에)  
+더 중요한 것은 문서상에서도 강조하듯이 여러 오브젝트(Delegate)들이 공유하는 기능들을 Delegate의 (프로토콜에 명시된) 펑션들만 수정하는 것으로 한방에 해결 할 수 있고 필요한 경우 Delegator의 소스 수정없이 Delegate를 교체 가능하다는 점.
 <br>
-여러가지 뷰에서 사용되는 같은 기능들을 delegator의 소스만 수정하면 모두 교체 가능하고 delegator에서 리턴되는 값(notification)을 이용해 delegate상에서 이벤트의 관찰 및 제어가 가능하다는 점을 기억하자.  
+여러가지 뷰에서 사용되는 같은 기능들을 delegate의 소스만 수정하면 모두 교체 가능하고 delegate에서 리턴되는 값(notification)을 이용해 delegator객체는 이벤트의 관찰 및 제어가 가능하다는 점을 기억하자.  
 <br>
 
 [1]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Delegation.html

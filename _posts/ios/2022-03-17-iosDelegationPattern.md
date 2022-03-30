@@ -104,7 +104,7 @@ delegate?.gameDidEnd(self)
 
 <br>
 
-그럼 이제 Delegate 의 일을 대신해줄 Delegator 을 살펴보자.
+그럼 이제 Delegator 의 일을 대신해줄 Delegate 을 살펴보자.
 
 ```swift
 class DiceGameTracker: DiceGameDelegate {
@@ -141,12 +141,13 @@ game.play()
 ```
 <br>
 
-위 로직은 일을 시킨 *SnakesAndLadders* 클래스에 정의된 주사위를 *DiceGameTracker* 클래스가 가져와서 사용하는 형태로 표현되어 있지만 우리에게 조금 더 흥미있는 방식은 일을 받은 *DiceGameTracker* 가 일을 시킨 *SnakeAndLadders* 의 속성값을 직접 바꿔주는 방식이다. (갑과을의 하극상이랄까...)  
+위 로직은 일을 시킨 *SnakesAndLadders* 클래스에 정의된 주사위를 *DiceGameTracker* 클래스가 가져와서 사용하는 형태로 표현되어 있지만 우리에게 조금 더 흥미있는 방식은 일을 받은 *DiceGameTracker* 가 일을 시킨 *SnakeAndLadders* 의 속성값을 직접 바꿔서 Delegator의 상태변화를 만드는 형태이다. (갑과을의 하극상이랄까...)  
 이것을 그림으로 표현하자면
 
 <img src="/img/delegationPattern1.png" >
 
-Delegator가 Delegate 안에 있는 ID 값을 변경했다.  
+Delegate이 Delegator 안에 있는 ID 값을 변경했다.  
+IOS개발시 delegate 변수안에 self 자신을 넣은 객체가 있다면 대부분 그 객체가 일을 해주는 Delegate이 된다.  
 
 가이드를 이해했다면 실제 iOS개발시의 예시를 살펴보자.  
 다음 포스트에서.
