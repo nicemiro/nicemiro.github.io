@@ -12,7 +12,7 @@ layout: post
 <img src="/img/2022-03-20-iosDelegationPattern2_1.png" >
 
 버튼 클릭으로 화면을 이동하면서 라벨의 문구를 바꿔주는 예시이다.  
-실행 했을 때 첫 화면인 FirstView가 떠맡은 일을 해주는 Delegate이다. NextView가 일을 주는 Delegate.
+실행 했을 때 첫 화면인 FirstView가 떠맡은 일을 해주는 Delegate이다. NextView가 일을 주는 Delegator.
 
 ```swift
 protocol SendDataDelegate : AnyObject{
