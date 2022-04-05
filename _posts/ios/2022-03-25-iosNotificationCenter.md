@@ -35,4 +35,6 @@ Delegation과 비교하면 이벤트등록의 간편성 및 특정 이벤트를 
 
 Notification Center의 사용예시를 보자.
 
+ongoing...
+
 [1]: https://developer.apple.com/documentation/foundation/notificationcenter
