@@ -14,6 +14,7 @@ layout: post
 버튼 클릭으로 화면을 이동하면서 라벨의 문구를 바꿔주는 예시이다.  
 실행 했을 때 첫 화면인 FirstView가 떠맡은 일을 해주는 Delegate이다. NextView가 일을 주는 Delegator.
 
+
 ```swift
 protocol SendDataDelegate : AnyObject{
     func sendData (message: String)
@@ -45,9 +46,8 @@ weak var delegate :SendDataDelegate?
 ```swift
 self.delegate?.sendData(message: "SecondView에서 보냄")
 ```
-실행 로직은 일을 받아 처리할 첫 화면 컨트롤러인 ViewController에 정의되어 있다.
-
 <br>
+실행 로직은 일을 받아 처리할 첫 화면 컨트롤러인 ViewController에 정의되어 있다.
 ```swift
 class ViewController: UIViewController , SendDataDelegate{
     @IBOutlet weak var viewLabel: UILabel!

@@ -1,6 +1,6 @@
 
 
-<br><br><br><br><br>
+<br><br><br>
 <h3>UPDATE</h3>
 
 <section>
@@ -10,12 +10,12 @@
         {% assign index = category | first %}
         {% assign collection = site.categories[index] | reverse %}
         
-        <a name="{{index}}">{{index}}</a> <br>
+        <a name="{{index}}"><strong>{{index}}</strong></a> <br>
         {% for index in collection %}
         <a href="{{site.baseurl}}{{index.url}}" name="{{ index.title}}">{{index.date | date : "%Y/%m/%d"}} - {{ index.title}}
             <span style="font-size:small" >( {{ index.titleEn }} )</span></a> <br>
         {% endfor %}
-        <br><br>
+        <br>
 
     {% endfor %}
     <br>
