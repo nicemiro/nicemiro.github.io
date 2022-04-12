@@ -14,6 +14,7 @@ layout: post
 개념을 Firebase를 통해 손쉽게 구현할 수 있다.
 
 ongoing
+
 [1]: https://firebase.google.com/docs/auth
 [2]: https://en.wikipedia.org/wiki/OAuth
 [3]: https://en.wikipedia.org/wiki/OpenID
