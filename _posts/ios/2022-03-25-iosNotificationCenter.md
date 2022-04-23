@@ -7,7 +7,7 @@ category: iOS
 layout: post
 ---
 
-### NotificationCenter 사용하기.
+### NotificationCenter
 
 [NotificationCenter][1] API는 등록된 옵저버에게 데이터를 브로드 캐스트 해주는 클래스이다.  
 Delegation과 비교하면 이벤트등록의 간편성 및 특정 이벤트를 옵저빙하고 있는 모든 객체에게  
@@ -36,17 +36,16 @@ Delegation과 비교하면 이벤트등록의 간편성 및 특정 이벤트를 
 사용하는 옵저버 수가 많아진다면 디폴트가 아닌 신규 Notification center를 생성하여  
 응답속도를 빠르게 할 수 있다.  
 
-옵저버 등록
-- `addObserver(_:selector:name:object:)`
+#### 옵저버 등록
+`addObserver(_:selector:name:object:)`
 수신할 노티피케이션과 호출할 셀렉터를 등록하는 방법.    
-&nbsp; selector : 노티피케이션 수신시 실행할 펑션의 셀렉터   
-&nbsp; name : 수신할 노티피케이션명. nil 일경우 sender는 post시 노티피케이션 명을 명시하지 않는다.  
-&nbsp; object : 노티피케이션을 send할 객체. nil 설정가능.  
+- &nbsp; *_ observer* : 노티피케이션 발생을 관찰할 옵저버 객체  
+- &nbsp; *selector* : 노티피케이션 수신시 실행할 펑션의 셀렉터   
+- &nbsp; *name* : 수신할 노티피케이션명. nil 일경우 sender는 노티피케이션 이름을 기준으로 post하지 않음.  
+- &nbsp; *object* : 노티피케이션을 send하는 객체. nil 설정가능 (*name* 파라메터가 nil일때 *object* 파라메터가 sender의 기준이 될수도 있지 않을까)
 
-- `addObserver(forName:object:queue:using:)` 노티피케이션이 수신시 실행할 블록을 등록하는 방법.  
-오퍼레이션 큐 (쓰레드관련)를 사용하는 방법으로 왠만하면 사용하지 말자.  
-
-
+`addObserver(forName:object:queue:using:)` 노티피케이션 수신시 실행할 블록을 명시하는 방법.  
+오퍼레이션 큐 ( 순차적 펑션실행 == 쓰레드관련 == 왠만하면 사용하지 말자 )를 사용함.
 
 <br>
 사용예시
@@ -74,7 +73,7 @@ class ViewController: UIViewController {
 [DistributedNotificationCenter][2] 를 사용해야 한다.  
 
 
-노티피케이션 포스트  
+#### 노티피케이션 포스트  
 Notification name, sender, userinfo를 파라메터로 사용함.
 혹은 userinfo를 생략할 수 있음.
 
