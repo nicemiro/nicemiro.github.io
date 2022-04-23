@@ -36,19 +36,56 @@ Delegation과 비교하면 이벤트등록의 간편성 및 특정 이벤트를 
 사용하는 옵저버 수가 많아진다면 디폴트가 아닌 신규 Notification center를 생성하여  
 응답속도를 빠르게 할 수 있다.  
 
-옵저버 등록에는 아래의 2가지 방법이 있고 옵저버 등록시 수신할 Notification을 명시해준다.  
-- addObserver(_:selector:name:object:)
-Adds an entry to the notification center to call the provided selector with the notification.
-수신할 노티피케이션과 호출할 셀렉터를 등록하는 방법.  
+옵저버 등록
+- `addObserver(_:selector:name:object:)`
+수신할 노티피케이션과 호출할 셀렉터를 등록하는 방법.    
+&nbsp; selector : 노티피케이션 수신시 실행할 펑션의 셀렉터   
+&nbsp; name : 수신할 노티피케이션명. nil 일경우 sender는 post시 노티피케이션 명을 명시하지 않는다.  
+&nbsp; object : 노티피케이션을 send할 객체. nil 설정가능.  
 
-- addObserver(forName:object:queue:using:)
-Adds an entry to the notification center to receive notifications that passed to the provided block.
-노티피케이션이 수신되는 블록을 노티피케이션과 함께 등록하는 방법.  
+- `addObserver(forName:object:queue:using:)` 노티피케이션이 수신시 실행할 블록을 등록하는 방법.  
+오퍼레이션 큐 (쓰레드관련)를 사용하는 방법으로 왠만하면 사용하지 말자.  
+
+
+
+<br>
+사용예시
+```swift
+class ViewController: UIViewController {
+    ...
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // 옵저버생성
+        let notiTempt = NSNotification.Name("sendNotification")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tappedButton), name: notiTempt, object: nil) 
+    }
+    // selector 생성
+    @objc func tappedButton() {
+        debugPrint("tapped button")
+    }
+    ...
+}
+
+```
+
+
 
 옵저버는 하나의 프로그램 내에서만 Notification을 수신할 수 있으며 프로그램간 Notification을 수신하려면  
 [DistributedNotificationCenter][2] 를 사용해야 한다.  
 
 
+노티피케이션 포스트  
+Notification name, sender, userinfo를 파라메터로 사용함.
+혹은 userinfo를 생략할 수 있음.
+
+
+
 
 [1]: https://developer.apple.com/documentation/foundation/notificationcenter
 [2]: https://developer.apple.com/documentation/foundation/distributednotificationcenter
+
+
+<br>
+Reference
+- [https://developer.apple.com/documentation/foundation/notificationcenter] [1]{:target="_blank"}  
+- [https://developer.apple.com/documentation/foundation/distributednotificationcenter] [2]{:target="_blank"}  

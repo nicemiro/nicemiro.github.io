@@ -2,7 +2,7 @@
 title: Selector란
 titleEn: Using Selector in iOS
 author: BabyK
-date: 2022-03-26
+date: 2022-04-22
 category: iOS
 layout: post
 ---
@@ -19,7 +19,7 @@ layout: post
 <br>
 >You use a selector created from a string when you want your code to send a message whose name you may not know until runtime.
 
-런타임시에 동적으로 펑션지정을 가능하게 한다. C의 동적메모리 할당과 비슷한 용도로 사용되는 듯.  
+런타임시에 동적으로 펑션지정을 가능하게 한다. C의 동적메모리 할당과 비슷한 용도로 사용되는 유용한 기능이다.  
 
 사용예시  
 ```swift
@@ -36,9 +36,11 @@ class ViewController: UIViewController {
     }
 }
 ```
--  *@objc* : Objective C의 런타임과 인터렉트 하기 위해서 붙여준다. Swift를 제대로 사용하기 위해서는 Objective-C 에 대한 학습이 필요해 보인다.
+-  **@objc** : Objective C의 런타임과 인터렉트 하기 위해 사용. (Swift를 제대로 사용하기 위해서는  
+ Objective-C 에 대한 학습이 필요해 보인다.)
 
-*참조*  
+<br>
+*Reference*  
 - [https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Selector.html][1]{:target="_blank"}  
 - [https://developer.apple.com/documentation/swift/using_objective-c_runtime_features_in_swift][2]{:target="_blank"}  
 - [https://developer.apple.com/documentation/objectivec/sel][3]{:target="_blank"}  
