@@ -41,7 +41,7 @@ Delegation과 비교하면 이벤트등록의 간편성 및 특정 이벤트를 
 `addObserver(_:selector:name:object:)`  
 수신할 노티피케이션과 호출할 셀렉터를 등록하는 방법.    
 - &nbsp; *_ observer* : 노티피케이션 발생을 관찰할 옵저버 객체  
-- &nbsp; *selector* : 노티피케이션 수신시 실행할 펑션의 셀렉터   
+- &nbsp; *selector* : 노티피케이션 수신시 실행할 펑션의 셀렉터  <a href="/posts/ios/2022-03-25-iosSelector" > (Selector 참조)</a>
 - &nbsp; *name* : 수신할 노티피케이션명. nil 일경우 sender는 노티피케이션 이름을 기준으로 post하지 않음.  
 - &nbsp; *object* : 노티피케이션을 send하는 객체. nil 설정가능 (*name* 파라메터가 nil일때 *object* 파라메터가 sender의 기준이 될수도 있지 않을까)
 

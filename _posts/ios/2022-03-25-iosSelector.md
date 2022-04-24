@@ -13,8 +13,8 @@ layout: post
 
 Objective-C에서 함수명을 파라메터로 사용하는 API를 위해 사용되던 것이 selector라고 한다.  
 한마디로 함수에 함수를 인자로 넘겨줄때 함수 포인터 정도로 쓰이던 기능인듯 하다.  
-셀렉터의 파라메터가 스트링타입이니 동적으로 선택이 가능하다는 점이 조금 다른듯 보인다.  
-(Swift에서는 스트링타입이 아니므로 dynamic call이 불가능 할듯)
+셀렉터의 파라메터가 스트링타입으로 동적 호출(런타임시에 호출 메소드가 조건에 따라 결정될 수 있음)이 가능하다는 점이 조금 다른듯 보인다.  
+(Swift에서는 스트링타입이 아니므로 동적 호출이 불가능 할듯)
 
 >In Swift, you create a selector for an Objective-C method by placing the name of the method within the #selector expression: #selector(MyViewController.tappedButton(_:)).
 
