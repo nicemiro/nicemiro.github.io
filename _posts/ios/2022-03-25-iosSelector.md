@@ -7,21 +7,23 @@ category: iOS
 layout: post
 ---
 
-### Selector 란?
+### Selector
 
-공식 문서를 보자.
-> In Objective-C, a selector is a type that refers to the name of an Objective-C method. In Swift, Objective-C selectors are represented by the Selector structure, and you create them using the #selector expression.
+>Some Objective-C APIs—like target-action—accept method or property names as parameters, then use those names to dynamically call or access the methods or properties. In Swift, you use the #selector and #keyPath expressions to represent those method or property names as selectors or key paths, respectively.
 
-대충 Selector란 Objective C에서 쓰이는 함수 포인터 인듯하다.  
-함수에 파라메터로 함수를 넘겨줘야 할 경우 *Selector* 를 사용하는 듯 한데  
-아마도 포인터의 사용을 없애기 위함이 아니었을까 일단 추측하고 넘어간다.
+Objective-C에서 함수명을 파라메터로 사용하는 API를 위해 사용되던 것이 selector라고 한다.  
+한마디로 함수에 함수를 인자로 넘겨줄때 함수 포인터 정도로 쓰이던 기능인듯 하다.  
+셀렉터의 파라메터가 스트링타입이니 동적으로 선택이 가능하다는 점이 조금 다른듯 보인다.  
+(Swift에서는 스트링타입이 아니므로 dynamic call이 불가능 할듯)
+
+>In Swift, you create a selector for an Objective-C method by placing the name of the method within the #selector expression: #selector(MyViewController.tappedButton(_:)).
+
+Swift에서 Objective-C 펑션을 호출할때 Selector를 사용한다.  
+iOS의 Objective-C API 레거시 때문이 아닐까 추측해본다.  
+(UIKit이 아닌 SwiftUI에서는 변경되었을까? iOS를 딥하게 사용하기 위해서는 ObjC에 대한 학습이 필요해 보인다.)
 
 <br>
->You use a selector created from a string when you want your code to send a message whose name you may not know until runtime.
-
-런타임시에 동적으로 펑션지정을 가능하게 한다. C의 동적메모리 할당과 비슷한 용도로 사용되는 유용한 기능이다.  
-
-사용예시  
+#### 사용예시  
 ```swift
 class ViewController: UIViewController {
     @IBOutlet weak var selectorBtn: UIButton!
@@ -31,20 +33,17 @@ class ViewController: UIViewController {
         self.selectorBtn.addTarget(self, action: action , for: .touchUpInside)
     }
 
+    // @objc Objective C의 런타임과 인터렉트 하기 위해 사용한다고 한다. (레거시코드 때문이 맞는듯)
     @objc func tappedButton(_ sender: UIButton?) {
         print("tapped button")
     }
 }
 ```
--  **@objc** : Objective C의 런타임과 인터렉트 하기 위해 사용. (Swift를 제대로 사용하기 위해서는  
- Objective-C 에 대한 학습이 필요해 보인다.)
 
 <br>
-*Reference*  
+#### Reference
 - [https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Selector.html][1]{:target="_blank"}  
 - [https://developer.apple.com/documentation/swift/using_objective-c_runtime_features_in_swift][2]{:target="_blank"}  
-- [https://developer.apple.com/documentation/objectivec/sel][3]{:target="_blank"}  
 
 [1]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Selector.html
 [2]: https://developer.apple.com/documentation/swift/using_objective-c_runtime_features_in_swift
-[3]: https://developer.apple.com/documentation/objectivec/sel
