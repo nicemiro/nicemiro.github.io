@@ -173,7 +173,7 @@ func testLayout() {
 - Composition is better with value semantics - With value types you have much better encapsulation without
 worrying about someone else modifying the copy that you're using.
 
-[Associatedtype][2]{:target="_blank"} 사용에 대한 예시는 Swift Doc을 봐도 정확히 감이오지 않는다. 컴파일러가 해당 객체안에서 사용될 타입을 추론가능하게 하고 특정 타입을 강제할 수 있다는 정도.
+[Associatedtype][2]{:target="_blank"} 사용에 대한 예시는 Swift Doc을 봐도 정확히 감이오지 않는다. 컴파일러가 해당 객체안에서 사용될 타입을 추론가능하게 하고 특정 타입을 강제할 수 있다는 정도. 즉 프로토콜에서 사용 할 수 있는 Generic의 용도라는 것.
 
 <br>
 #### Reference
