@@ -150,7 +150,8 @@ Delegate이 Delegator 안에 있는 ID 값을 변경했다.
 IOS개발시 delegate 변수안에 self 자신을 넣은 객체가 있다면 대부분 그 객체가 일을 해주는 Delegate이 된다.  
 
 가이드를 이해했다면 실제 iOS개발시의 예시를 살펴보자.  
-다음 포스트에서.
+<!-- {{site.url}}/{{page.collection}}/{{page.category|downcase}}/2022-03-20-iosDelegationPattern2 -->
+[Delegation Pattern (위임패턴)(2)]({% link _posts/ios/2022-03-20-iosDelegationPattern2.md %})
 <br>
 
 [1]: https://docs.swift.org/swift-book/LanguageGuide/Protocols.html#ID276
