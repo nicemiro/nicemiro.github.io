@@ -7,11 +7,12 @@ category: iOS
 layout: post
 ---
 
-### Protocol Oriented Programming (POP)
-기존의 자바로 대표되는 OOP의 클래스 상속을 통한 구현이 아닌 Swift의 Protocol채택을 이용한 기능구현.  
-부모클래스에 대한 의존도와 복잡성을 줄인 유연하고 확장가능하며 가독성있는 코드 구현이 가능함.
+### POP ?
+기존의 자바로 대표되는 OOP의 클래스 상속을 통한 구현이 아닌   
+Swift언어의 Protocol채택을 이용해 부모클래스에 대한 의존도와 복잡성을 줄인  
+유연하고 확장가능하며 가독성있는 코드 구현이 방법.  
 
-애플 WWDC16 세션의 'POP in UIkit Apps' 내용중.
+애플 WWDC16 세션의 'POP in UIkit Apps' 요약.
 - Customization through composition (for complex behaviors)
 - Protocols for generic, reusable code (fast and safety polymorphism)
 - Taking advantage of value semantics
@@ -19,7 +20,6 @@ layout: post
 
 <br>
 ### 1. Taking advantage of value semantics
-#### <strong>'Inheritance is another place where you really sacrifice the ability to use local reasoning'</strong>  
 Class 객체의 사용시 <span style="color:red"><strong>상속 복잡도</strong></span>가 증가하며, 객체 복사시 <span style="color:red"><strong>동일 메모리주소 참조</strong></span>로 인해 값이 변경될 수 있음.  
 OOP에서와 같이 Simple model type에 대해서만 Value형인 Structure를 사용할 것이 아니라  
 적극적으로 structure를 사용하자.
@@ -173,7 +173,8 @@ func testLayout() {
 - Composition is better with value semantics - With value types you have much better encapsulation without
 worrying about someone else modifying the copy that you're using.
 
-[Associatedtype][2]{:target="_blank"} 사용에 대한 예시는 Swift Doc을 봐도 정확히 감이오지 않는다. 컴파일러가 해당 객체안에서 사용될 타입을 추론가능하게 하고 특정 타입을 강제할 수 있다는 정도. 즉 프로토콜에서 사용 할 수 있는 Generic의 용도라는 것.
+[Associatedtype][2]{:target="_blank"} 사용에 대한 Swift Doc의 예시도 그닥 명확하지는 않다. 컴파일러가 해당 객체안에서 사용될 타입을 추론가능하게 하고 특정 타입을 강제할 수 있다는 정도. 즉 프로토콜에서 사용 할 수 있는 Generic 용도라는 것인데  
+프로퍼티와 메소드의 문맥을 보고 강제되는것 같다.
 
 <br>
 #### Reference
