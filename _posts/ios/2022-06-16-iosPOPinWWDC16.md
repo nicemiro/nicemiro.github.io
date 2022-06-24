@@ -10,7 +10,7 @@ layout: post
 ### POP ?
 기존의 자바로 대표되는 OOP의 클래스 상속을 통한 구현이 아닌   
 Swift언어의 Protocol채택을 이용해 부모클래스에 대한 의존도와 복잡성을 줄인  
-유연하고 확장가능하며 가독성있는 코드 구현이 방법.  
+유연하고 확장가능하며 가독성있는 코드구현 방법.  
 
 애플 WWDC16 세션의 'POP in UIkit Apps' 요약.
 - Customization through composition (for complex behaviors)
