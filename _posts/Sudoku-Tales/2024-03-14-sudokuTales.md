@@ -7,7 +7,7 @@ category: Sudoku-Tales
 layout: post
 ---
 
-### Sudoku Tales Release 1.0 for iOS.
+### Sudoku Tales Release ver 1.0 for iOS.
 <div class="container" align="center" style="display: flex;"> 
     <!-- <div style="flex:1" align="center"> -->
     <div align="center">
