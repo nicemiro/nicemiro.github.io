@@ -7,12 +7,9 @@ layout: post
 ---
 
 <section>
-
-
     {% for category in site.categories %}
         <a href="{{site.baseurl}}/pages/categories/{{category | first | downcase}}"> {{ category | first }}</a> <br>
     {% endfor %}
-
 </section>
 
 

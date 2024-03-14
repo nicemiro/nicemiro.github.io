@@ -83,9 +83,12 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-22
   x86_64-darwin-21
 
 DEPENDENCIES
+  eventmachine (~> 1.2, >= 1.2.7)
+  http_parser.rb (~> 0.8.0)
   jekyll
   jekyll-feed
   jemoji

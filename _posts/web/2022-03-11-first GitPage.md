@@ -5,6 +5,7 @@ author: BabyK
 date: 2022-03-11
 category: Web
 layout: post
+published: false
 ---
 
 ### Jekyll 환경설정 (Environment Setup)
