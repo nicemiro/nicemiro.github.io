@@ -12,7 +12,7 @@ layout: home
 </div>
 
 <br>
-<iframe width="400" height="800" align="center" src="https://www.youtube.com/embed/0drHezJYZGU?autoplay=1" title="Sudoku Tales for iOS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="400" height="800" align="center" src="https://www.youtube.com/embed/0drHezJYZGU?autoplay=1?controls=0" title="Sudoku Tales for iOS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <br>
 
 <div class="screenShots" align="center">
