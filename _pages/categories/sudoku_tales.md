@@ -1,5 +1,5 @@
 ---
-title: Sudoku-Tales
+title: Sudoku_Tales
 author: BabyK
 date: 2024-03-14
 category: Categories

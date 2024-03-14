@@ -3,7 +3,7 @@ title: Sudoku Tales Realease
 titleEn: Sudoku Tales Realease
 author: BabyK
 date: 2024-03-14
-category: Sudoku-Tales
+category: Sudoku_Tales
 layout: post
 ---
 
