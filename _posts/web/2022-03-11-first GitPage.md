@@ -1,6 +1,6 @@
 ---
-title: Github Page 만들기 (1)
-titleEn: Creating a Github Pages for mac (1)
+title: Jekyll 설치
+titleEn: Jekyll. install and usage for Mac
 author: BabyK
 date: 2022-03-11
 category: Web
@@ -27,8 +27,7 @@ babyK@macbook ~ % brew install ruby
 #### bundler, jekyll 설치
 [Jekyll][2]은 Ruby언어를 사용하여 만들어진 정적 사이트 생성 툴(Static site builder)이며 [Liquid][1] 문법을 사용하여 웹페이지를 만들 수 있게 해준다.  
 Github의 공동 설립자가 만들었으며 Github page에 default로 적용되어 사용되고 있다.    
-정적 페이지이기 때문에 사용자가 미리 작성해 놓지 않으면 보여줄 수 없는 부분들도 있고 수정하다보면 차라리 이럴꺼면 HTML과 Javascript를 사용해서 그냥 새로 만드는게 낫지 않을까 하는 생각이 들때도 있지만  
-다른 유저들이 만들어 놓은 수많은 테마들을 적용하고 거기에서 또 사용자의 입맛에 맞게 조금씩 수정해 가는 재미가 있다.  
+정적 페이지이기 때문에 사용자가 미리 작성해 놓지 않으면 보여줄 수 없는 부분들도 있고 수정하다보면 차라리 이럴꺼면 HTML과 Javascript를 사용해서 그냥 새로 만드는게 낫지 않을까 하는 생각이 들때도 있지만 다른 유저들이 만들어 놓은 수많은 테마들을 적용하고 거기에서 또 사용자의 입맛에 맞게 조금씩 수정해 가는 재미가 있다.
 
 <br>
 Bundler는 node js의 npm 같은 패키지 매니져인듯.
@@ -167,8 +166,14 @@ Configuration file: /Users/babyk/workspace/gitRepo/testPage/_config.yml
 <br>
 기본테마인 minima 가 적용되어 있다.  
 폰트 가독성과 화면구성이 꽤 훌륭한 테마라서 사이드메뉴 하나만 추가하고 사용해도 괜찮을 것 같다.  
-Jekyll을 사용해 로컬에서 생성한 웹페이지를 Github 사이트에 올려 GithubPage에서 사용해보자.  
-다음 포스트에서.
+Jekyll을 사용해 로컬에서 생성한 웹페이지를 Github 사이트에 올려 GithubPage에서 띄우면 곧바로 훌륭한 홈페이지가 만들어진다.
+
+<br>
+#### bundler 에 대한 추가 설명.  
+bundle install 커맨드는 Gemfile 안에 리스트업 되어 있는 버전의 Gem들을 설치해준다.
+설치하면서 각 버전들의 dependency를 체크하고 Gemfile.lock 파일을 생성해주는데
+우리가 bundle exec jekyll serve 를 입력하여 jekyll을 실행하면 이 Gemfile.lock 에 명시된 Gem(라이브러리)의 버젼을 사용해서 실행하게 된다.
+이렇게 하면 작성된 페이지를 다른 환경에 (github 서버라던가) 띄워야 할때도 동일한 Gemfile.lock 파일을 사용하여 버전 충돌을 방지할 수 있다.
 
 [1]: https://shopify.github.io/liquid/
 [2]: https://jekyllrb.com/
