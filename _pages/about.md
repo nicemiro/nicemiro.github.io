@@ -6,7 +6,7 @@ category: Jekyll
 layout: post
 ---
 
-Software Developer
+Chicken Earth Software
 
 <br>
 
