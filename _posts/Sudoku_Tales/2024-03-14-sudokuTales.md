@@ -1,6 +1,6 @@
 ---
 title: 스도쿠 테일즈 출시
-titleEn: Sudoku Tales Realease
+titleEn: Sudoku Tales Release
 author: BabyK
 date: 2024-03-14
 category: Sudoku_Tales
