@@ -16,12 +16,11 @@ layout: home
 <br>
 
 <div class="screenShots" align="center">
-<img src="/img/sudokuTales/SudokuTalesScreenShot00.png" style="width:40%;height:40%">
 <img src="/img/sudokuTales/SudokuTalesScreenShot01.png" style="width:40%;height:40%">
 <img src="/img/sudokuTales/SudokuTalesScreenShot02.png" style="width:40%;height:40%">
 <img src="/img/sudokuTales/SudokuTalesScreenShot03.png" style="width:40%;height:40%">
 <img src="/img/sudokuTales/SudokuTalesScreenShot04.png" style="width:40%;height:40%">
-<img src="/img/sudokuTales/SudokuTalesScreenShot05.png" style="width:40%;height:40%">
+
 </div>
 
 <br>
