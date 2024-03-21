@@ -30,5 +30,5 @@ layout: home
 <img src="/img/sudokuTales/SudokuTalesScreenShot04.png" style="width:40%;height:40%">
 </div>
 
-[1]: ./posts/Sudoku_Tales/2024-03-21-sudokuTales_ver1-1patch
+[1]: ./posts/Sudoku_Tales/2024-03-21-sudokuTalesPatchVer101
 [2]: ./posts/Sudoku_Tales/2024-03-14-sudokuTales

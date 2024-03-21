@@ -31,6 +31,6 @@ layout: post
 ##### - 인게임 퍼포먼스 패치
 <br>
 <div class="screenShots" align="center">
-<img src="/img/sudokuTales/SudokuTalesPatchVer1_1_0.png" style="width:40%;height:40%">
-<img src="/img/sudokuTales/SudokuTalesPatchVer1_1_1.png" style="width:40%;height:40%">
+<img src="/img/sudokuTales/SudokuTalesPatchVer10101.png" style="width:40%;height:40%">
+<img src="/img/sudokuTales/SudokuTalesPatchVer10100.png" style="width:40%;height:40%">
 </div>
