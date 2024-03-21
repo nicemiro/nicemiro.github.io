@@ -1,14 +1,16 @@
 ---
 layout: home
 ---
-### [업데이트 패치 1.1 (Sudoku Tales Ver 1.1 Update for iOS)][1]
+<br>
+
+### [Sudoku Tales Ver 1.1 Update for iOS][1]
 ##### - Global Leaderboard score added
 ##### - In-game input performance enhanced
 ##### - 글로벌 랭킹보드 추가
 ##### - 인게임 퍼포먼스 패치
 <br>
 
-### [스도쿠 테일즈 출시! (Sudoku Tales Release for iOS)][2]
+### [Sudoku Tales Release for iOS][2]
 <div>
     <a href="https://apps.apple.com/us/app/sudoku-tales/id6479256294" target="_blank">
     <img src="/img/appleBadge/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" style="width:25%;height:25%"></a>
