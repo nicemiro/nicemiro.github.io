@@ -1,32 +1,54 @@
----
-layout: null
----
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    {% for post in site.posts %}
+    
+    <!-- Web -->
     <url>
-        <loc>{{ site.url }}{{ post.url }}</loc>
-        {% if post.lastmod == null %}
-        <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
-        {% else %}
-        <lastmod>{{ post.lastmod | date_to_xmlschema }}</lastmod>
-        {% endif %}
-
-        {% if post.sitemap.changefreq == null %}
+        <loc>https://nicemiro.github.io/posts/web/2022-03-11-first%20GitPage</loc>
+        <lastmod>2022-03-11T00:00:00+09:00</lastmod>
         <changefreq>weekly</changefreq>
-        {% else %}
-        <changefreq>{{ post.sitemap.changefreq }}</changefreq>
-        {% endif %}
-
-        {% if post.sitemap.priority == null %}
         <priority>0.5</priority>
-        {% else %}
-        <priority>{{ post.sitemap.priority }}</priority>
-        {% endif %}
-
     </url>
-    {% endfor %}
+
+    <!-- Desin_Pattern -->
+    <url>
+        <loc>https://nicemiro.github.io/posts/design_pattern/2022-03-17-delegationPattern</loc>
+        <lastmod>2022-03-17T00:00:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- iOS -->
+    <url>
+        <loc>https://nicemiro.github.io/posts/ios/2022-03-15-ManagingModelDataInView</loc>
+        <lastmod>2023-03-25T00:00:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Thought -->
+    <url>
+        <loc>https://nicemiro.github.io/posts/thought/2022-04-24-thought_%08SoloDevelopment</loc>
+        <lastmod>2023-03-28T00:00:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Sudoku_Tales -->
+    <url>
+        <loc>https://nicemiro.github.io/posts/Sudoku_Tales/2024-03-21-sudokuTalesPatchVer101</loc>
+             
+        <lastmod>2024-03-21T00:00:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>        
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://nicemiro.github.io/posts/Sudoku_tales/2024-03-14-sudokuTales</loc>
+        
+        <lastmod>2024-03-14T00:00:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
 </urlset>
