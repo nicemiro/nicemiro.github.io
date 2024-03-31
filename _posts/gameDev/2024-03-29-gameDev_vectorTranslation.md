@@ -7,9 +7,9 @@ category: GameDev
 layout: post
 published: true
 ---
-
-모니터상에 움직이는 물체를 표현할 때 벡터를 사용한다.  
-화면상의 두 비행체가 각각 두 지점을 향해 같은 탄환을 발사하는 상황을 생각해보자.  
+<br>
+화면상에 움직이는 물체를 표현할 때 벡터를 사용한다.  
+두 비행체가 각각 두 지점을 향해 같은 탄환을 발사하는 상황을 생각해보자.  
 
 <div class="screenShots" align="left">
 <img src="/img/gameDev/2024-03-29-gameDev_rotationOfVector00.png" style="width:50%;height:50%">
