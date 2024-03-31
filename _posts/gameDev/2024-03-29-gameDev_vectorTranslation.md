@@ -148,12 +148,29 @@ class VectorTranslation : GameClass {
     }
     
     func update(_ updateDt: TimeInterval) {
-        coordA.x += vector1.x * projectileSpped
-        coordA.y += vector1.y * projectileSpped
-        
-        coordC.x += vector2.x * projectileSpped
-        coordC.y += vector2.y * projectileSpped
-        
+
+        // B좌표에 도달하지 않았다면 계속 이동
+        if coordA.x < coordB.x
+        {
+            coordA.x += vector1.x * projectileSpped
+            coordA.y += vector1.y * projectileSpped
+        }
+        else
+        {
+            // 도착. 폭발.
+        }
+
+        // D좌표에 도달하지 않았다면 계속 이동
+        if coordC.x < coordD.x
+        {
+            coordC.x += vector2.x * projectileSpped
+            coordC.y += vector2.y * projectileSpped
+        }
+        else
+        {
+            // 도착. 폭발.
+        }
+
         draw()
     }
     
