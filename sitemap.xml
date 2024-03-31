@@ -51,4 +51,12 @@
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
+
+    <!-- GameDev -->
+    <url>
+        <loc>https://nicemiro.github.io/posts/gameDev/2024-03-29-gameDev_vectorTranslation</loc>
+        <lastmod>2024-03-31T00:00:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
 </urlset>
