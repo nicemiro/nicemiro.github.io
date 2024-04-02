@@ -25,7 +25,7 @@ vy2 = (D.y - C.y) / 4
 
 이 공식은 한가지 문제가 있는데   
 두 탄환은 화면상의 좌표를 각각 4번씩 찍어주며 이동하기 때문에 거리에 상관없이 도착 시간이 같다.  
-시작점과 끝점 사이의 거리가 길어질수록 탄환의 속도가 빨리지고 가까울수록 속도가 느려지고 있는 것이다.  
+시작점과 끝점 사이의 거리가 멀어질수록 탄환의 속도가 빨리지고 가까울수록 속도가 느려지고 있는 것이다.  
 
 <div class="screenShots" align="left">
 <img src="/img/gameDev/2024-03-29-gameDev_rotationOfVector02.png" style="width:50%;height:50%">
@@ -128,7 +128,7 @@ class VectorTranslation : GameClass {
     
     private var vector1 = CGPoint(x: 0, y: 0)
     private var vector2 = CGPoint(x: 0, y: 0)
-    private var projectileSpped = Double(0.3)   // 탄환종류별 속도가중치
+    private var projectileSpeed = Double(0.3)   // 탄환종류별 속도가중치
     
     init() {
         setVectors()
@@ -152,8 +152,8 @@ class VectorTranslation : GameClass {
         // B좌표에 도달하지 않았다면 계속 이동
         if coordA.x < coordB.x
         {
-            coordA.x += vector1.x * projectileSpped
-            coordA.y += vector1.y * projectileSpped
+            coordA.x += vector1.x * projectileSpeed
+            coordA.y += vector1.y * projectileSpeed
         }
         else
         {
@@ -163,8 +163,8 @@ class VectorTranslation : GameClass {
         // D좌표에 도달하지 않았다면 계속 이동
         if coordC.x < coordD.x
         {
-            coordC.x += vector2.x * projectileSpped
-            coordC.y += vector2.y * projectileSpped
+            coordC.x += vector2.x * projectileSpeed
+            coordC.y += vector2.y * projectileSpeed
         }
         else
         {
