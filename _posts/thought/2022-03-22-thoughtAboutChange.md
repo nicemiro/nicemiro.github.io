@@ -5,7 +5,7 @@ author: BabyK
 date: 2022-03-22
 category: Thought
 layout: post
-published: false
+published: true
 ---
 
 >'If you going to have progress there has to be change.  
