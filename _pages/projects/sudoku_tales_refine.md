@@ -18,8 +18,13 @@ layout: post
   </div>
 </div>
 
-<div class="screenShots" align="center">
-<img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg" style="width:40%;height:40%">
+<div class="row" align="center">
+      <div class="column" >
+            <img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg">
+      </div>
+      <div class="column" >
+            <img src="/img/sudokuTales/SudokuTalesRefineShot02.png">
+      </div>
 </div>
 
 <br>
