@@ -3,32 +3,30 @@ layout: home
 ---
 <br>
 
-### [Sudoku Tales Ver 1.1 Update for iOS][1]
-##### - Global Leaderboard score added
-##### - In-game input performance enhanced
-##### - 글로벌 랭킹보드 추가
-##### - 인게임 퍼포먼스 패치
-<br>
+### Sudoku Tales Refine Release for iOS.
 
-### [Sudoku Tales Release for iOS][2]
-<div>
-    <a href="https://apps.apple.com/us/app/sudoku-tales/id6479256294" target="_blank">
-    <img src="/img/appleBadge/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" style="width:25%;height:25%"></a>
-    <a href="https://apps.apple.com/kr/app/sudoku-tales/id6479256294" target="_blank"> 
-    <img src="/img/appleBadge/Download_on_the_App_Store_Badge_KR_RGB_blk_100317.svg" style="width:25%;height:25%"></a>
+<div class="row" align="center">
+  <div class="column" >
+        <a href="https://apps.apple.com/us/app/sudoku-tales-refine/id6547845536" target="_blank">
+        <img src="/img/appleBadge/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" ></a>
+  </div>
+  <div class="column">
+        <a href="https://apps.apple.com/kr/app/sudoku-tales-refine/id6547845536" target="_blank"> 
+        <img src="/img/appleBadge/Download_on_the_App_Store_Badge_KR_RGB_blk_100317.svg"></a>
+  </div>
 </div>
 
-<br>
-<iframe width="400" height="800" align="center" src="https://www.youtube.com/embed/0drHezJYZGU?autoplay=1?controls=0" title="Sudoku Tales for iOS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-<br>
-
-#### <center>Would you like to start a delightful and beautiful journey of Sudoku?
 <div class="screenShots" align="center">
-<img src="/img/sudokuTales/SudokuTalesScreenShot01.png" style="width:40%;height:40%">
-<img src="/img/sudokuTales/SudokuTalesScreenShot02.png" style="width:40%;height:40%">
-<img src="/img/sudokuTales/SudokuTalesScreenShot03.png" style="width:40%;height:40%">
-<img src="/img/sudokuTales/SudokuTalesScreenShot04.png" style="width:40%;height:40%">
+<img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg" style="width:40%;height:40%">
 </div>
 
-[1]: ./posts/Sudoku_Tales/2024-03-21-sudokuTalesPatchVer101
-[2]: ./posts/Sudoku_Tales/2024-03-14-sudokuTales
+<br>
+#### 매일매일 틈틈이 스도쿠 하세요! 버스안에서, 지하철에서, 카페에서도 스도쿠! 스도쿠 리파인!
+#### Sudoku every day! Play Sudoku whenever you have a moment, whenever you can! Sudoku Tales Refine!  
+
+##### - Play Sudoku with beautiful BGM!  
+##### - Use your brainpower to unlock amazing images!
+##### - Enjoy Sudoku on the subway, bus, or at the café! Sudoku, Sudoku!
+
+
+<br>
