@@ -3104,6 +3104,15 @@ table {
 .navigation.navigation-prev {
     left: 0;
 }
+
+.column {
+    float: left;
+  }
+.row {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 1240px) {
     .navigation {
         position: static;
