@@ -19,16 +19,10 @@ layout: post
     </div>
 </div>
 
-
-<div class="row" align="center">
-  <div class="column">
-    <img src="/img/sudokuTales/SudokuTalesShot01.jpeg" >
-  </div>
-  <div class="column">
-    <img src="/img/sudokuTales/SudokuTalesShot02.jpeg" >
-  </div>
-
+<div class="screenShots" align="center">
+<img src="/img/sudokuTales/SudokuTalesShot01.jpeg" style="width:50%;height:50%">
 </div>
+
 <br>
 
 <div align="center">

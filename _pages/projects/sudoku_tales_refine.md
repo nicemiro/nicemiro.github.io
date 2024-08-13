@@ -18,14 +18,10 @@ layout: post
   </div>
 </div>
 
-<div class="row" align="center">
-      <div class="column" >
-            <img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg">
-      </div>
-      <div class="column" >
-            <img src="/img/sudokuTales/SudokuTalesRefineShot02.jpeg">
-      </div>
+<div class="screenShots" align="center">
+<img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg" style="width:50%;height:50%">
 </div>
+
 
 <br>
 #### 매일매일 틈틈이 스도쿠 하세요! 버스안에서, 지하철에서, 카페에서도 스도쿠! 스도쿠 리파인!
