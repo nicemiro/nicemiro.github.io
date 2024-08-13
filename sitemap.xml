@@ -35,19 +35,19 @@
         <priority>0.5</priority>
     </url>
 
-    <!-- Sudoku_Tales -->
+    <!-- Sudoku_Tales_Refine -->
     <url>
-        <loc>https://nicemiro.github.io/posts/Sudoku_Tales/2024-03-21-sudokuTalesPatchVer101</loc>
+        <loc>https://nicemiro.github.io/pages/projects/sudoku_tales_refine/</loc>
              
-        <lastmod>2024-03-21T00:00:00+09:00</lastmod>
+        <lastmod>2024-08-13T00:00:00+09:00</lastmod>
         <changefreq>weekly</changefreq>        
         <priority>0.5</priority>
     </url>
     
+    <!-- Sudoku_Tales_-->
     <url>
-        <loc>https://nicemiro.github.io/posts/Sudoku_tales/2024-03-14-sudokuTales</loc>
-        
-        <lastmod>2024-03-14T00:00:00+09:00</lastmod>
+        <loc>https://nicemiro.github.io/pages/projects/sudoku_tales/</loc>
+        <lastmod>2024-08-13T00:00:00+09:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
