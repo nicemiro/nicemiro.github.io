@@ -4,6 +4,7 @@ titleEn:
 author: BabyK
 date: 2022-03-17
 category: Design_Pattern
+tags: [Pattern]
 layout: post
 ---
 한 객체가 자기자신을 다른 객체에게 넘겨준 후 자신을 위해 일하게 만드는 패턴.  

@@ -4,7 +4,9 @@ titleEn: Observer Pattern
 author: BabyK
 date: 2024-08-16
 category: Design_Pattern
+tags: [Pattern]
 layout: post
+published: false
 ---
 한 객체가 자기자신을 다른 객체에게 넘겨준 후 자신을 위해 일하게 만드는 패턴.  
 현재 화면에서 이전화면의 상태를 바꾸는 가장 손쉬운 방법으로  

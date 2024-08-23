@@ -5,6 +5,7 @@ author: BabyK
 date: 2023-03-25
 category: iOS
 layout: post
+tags: [iOS]
 published: true
 ---
 <br>

@@ -28,5 +28,4 @@ layout: home
 ##### - Use your brainpower to unlock amazing images!
 ##### - Enjoy Sudoku on the subway, bus, or at the café! Sudoku, Sudoku!
 
-
 <br>

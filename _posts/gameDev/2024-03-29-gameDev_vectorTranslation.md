@@ -5,6 +5,7 @@ author: BabyK
 date: 2024-03-29
 category: GameDev
 layout: post
+tags: [GameDev]
 published: true
 ---
 <br>
