@@ -26,9 +26,10 @@ babyK@macbook ~ % brew install ruby
 ```
 <br>
 #### bundler, jekyll 설치
-[Jekyll][2]은 Ruby언어를 사용하여 만들어진 정적 사이트 생성 툴(Static site builder)이며 [Liquid][1] 문법을 사용하여 웹페이지를 만들 수 있게 해준다.  
+[Jekyll][2]은 Ruby언어를 사용하여 만들어진 정적 사이트 생성 툴(Static site builder)이며  
+[Liquid][1] 문법을 사용하여 웹페이지를 만들 수 있게 해준다.  
 Github의 공동 설립자가 만들었으며 Github page에 default로 적용되어 사용되고 있다.    
-정적 페이지이기 때문에 사용자가 미리 작성해 놓지 않으면 보여줄 수 없는 부분들도 있고 수정하다보면 차라리 이럴꺼면 HTML과 Javascript를 사용해서 그냥 새로 만드는게 낫지 않을까 하는 생각이 들때도 있지만 다른 유저들이 만들어 놓은 수많은 테마들을 적용하고 거기에서 또 사용자의 입맛에 맞게 조금씩 수정해 가는 재미가 있다.
+
 
 <br>
 Bundler는 node js의 npm 같은 패키지 매니져인듯.
@@ -50,6 +51,12 @@ babyK@macbook ~ % gem install jekyll bundle
 babyK@macbook ~ % jekyll -v
 ```
 * `GemNotFound` 에러 발생시 'bundle' or 'bundle install' 입력. GemFile 안에 등록된 gem 들이 설치됨.
+
+bundle install 커맨드는 Gemfile 안에 리스트업 되어 있는 버전의 Gem들을 설치해준다.  
+설치하면서 각 버전들의 dependency를 체크하고 Gemfile.lock 파일을 생성해주는데  
+`bundle exec jekyll serve` 를 입력하여 jekyll 서버를 실행하면  
+Gemfile.lock 에 명시된 Gem(라이브러리) 버젼들을 사용해서 실행하게 된다.  
+이렇게 하면 작성된 페이지를 다른 환경에 업로드 할때도 버전 충돌을 방지할 수 있다.  
 
 <br>
 
@@ -160,7 +167,9 @@ Configuration file: /Users/babyk/workspace/gitRepo/testPage/_config.yml
 
 <br>
 **웹페이지 확인**  
-디폴트 주소는 http://localhost:4000가 사용되며 포트변경시 'jekyll serve --port 0000' 와 같이 변경할 포트번호를 입력한다.
+디폴트 주소는 http://localhost:4000가 사용되며 포트변경시 'jekyll serve --port 0000' 와 같이 변경할 포트번호를 입력한다.  
+실행중인 제킬 서버를 CTRL + C 로 종료하지 않고 다시 실행하면 포트가 이미 사용중이라며 오류가 발생할 수 있다.  
+이때는 포트번호를 변경하거나 시스템 모니터를 보고 프로세스를 직접 kill 해줘야 한다.  
 
 <img src="/img/minimaPic.png" >
 
@@ -170,11 +179,6 @@ Configuration file: /Users/babyk/workspace/gitRepo/testPage/_config.yml
 Jekyll을 사용해 로컬에서 생성한 웹페이지를 Github 사이트에 올려 GithubPage에서 띄우면 곧바로 훌륭한 홈페이지가 만들어진다.
 
 <br>
-#### bundler 에 대한 추가 설명.  
-bundle install 커맨드는 Gemfile 안에 리스트업 되어 있는 버전의 Gem들을 설치해준다.
-설치하면서 각 버전들의 dependency를 체크하고 Gemfile.lock 파일을 생성해주는데
-우리가 bundle exec jekyll serve 를 입력하여 jekyll을 실행하면 이 Gemfile.lock 에 명시된 Gem(라이브러리)의 버젼을 사용해서 실행하게 된다.
-이렇게 하면 작성된 페이지를 다른 환경에 (github 서버라던가) 띄워야 할때도 동일한 Gemfile.lock 파일을 사용하여 버전 충돌을 방지할 수 있다.
 
 [1]: https://shopify.github.io/liquid/
 [2]: https://jekyllrb.com/
