@@ -4,7 +4,7 @@ titleEn:
 author: BabyK
 date: 2024-08-16
 category: Design_Pattern
-tags: [Pattern, ios]
+tags: [Pattern, iOS]
 layout: post
 published: true
 ---
