@@ -57,6 +57,7 @@ protocol Subject {
 
 protocol Observer {
     var id: String { get set }
+    var subjectIds: [String] {get set}
     func onNotify(_ message: Message)
     func subscribe(_ subject: Subject)
     func unsubscribe(_ subject: Subject)
@@ -65,29 +66,29 @@ protocol Observer {
 
 class User: Observer {
     var id: String
-    var subscribingIds: [String] = []
+    var subjectIds: [String] = []
     
     init(_ id:String) {
         self.id = id
     }
     
     func subscribe(_ subject: Subject) {
-        if subscribingIds.contains(where: { $0 == subject.id} )
+        if subjectIds.contains(where: { $0 == subject.id} )
         {
             print("You are already subscribing to \(subject.id)")
         }
         else
         {
             subject.setSubscriber(self)
-            subscribingIds.append(subject.id)
+            subjectIds.append(subject.id)
         }
     }
     
     func unsubscribe(_ subject: Subject) {
-        if let index = subscribingIds.firstIndex(where: {$0 == subject.id})
+        if let index = subjectIds.firstIndex(where: {$0 == subject.id})
         {
             subject.removeSubscriber(self)
-            subscribingIds.remove(at: index)
+            subjectIds.remove(at: index)
         }
         else
         {
@@ -100,7 +101,7 @@ class User: Observer {
     }
     
     func printSubscribes() {
-        print("\(self.id) is subscring to \(subscribingIds.count) subjects")
+        print("\(self.id) is subscring to \(subjectIds.count) subjects")
     }
 }
 
