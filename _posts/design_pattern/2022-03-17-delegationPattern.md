@@ -4,7 +4,7 @@ titleEn:
 author: BabyK
 date: 2022-03-17
 category: Design_Pattern
-tags: [Pattern]
+tags: [DesignPattern]
 layout: post
 ---
 
