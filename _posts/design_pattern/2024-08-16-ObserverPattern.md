@@ -1,5 +1,5 @@
 ---
-title: Observer Pattern + Notification Center
+title: Observer Pattern (옵저버 패턴)
 titleEn:
 author: BabyK
 date: 2024-08-16
@@ -8,11 +8,12 @@ tags: [Pattern, ios]
 layout: post
 published: true
 ---
-
+<br>
 ### 구독과 알람 기능을 생각해보자
 유튜브의 Subscribe 기능을 생각해보면 옵저버패턴의 정체를 알 수 있다.  
 구독자들은 Observer 가 되어 유튜버를 구독하고  
-유튜버는 이벤트가 생길때마다 구독자들에게 알람으로 Notification을 날린다.  
+유튜버는 Subject 의 역할을 하며 이벤트가 생길때마다 구독자들에게  
+알람 (notification) 을 날린다.  
 
 업적당성 메달을 획득하는 게임 이벤트 또한 예시로 들 수 있다.  
 유저가 특정한 업적에 도달하면 업적객체는 유저의 업정달성을 확인하고  
@@ -27,7 +28,7 @@ published: true
 방송국은 해당 컨텐츠를 무작위로 브로드캐스트하고 시청자들은 주파수를  
 맞춰 컨텐츠를 시청하는데 방송국은 시청자가 누구인지 모르기 때문이다.  
 옵저버패턴의 Subject 는 자신을 관찰하고 있는 Observer 가 누구인지  
-모두 알고 있다는게 중요한 차이점임.  
+모두 알고 있다는게 중요한 차이점.  
 
 즉 방송국을 Subject 라고 본다면 Observer 들은 Subject 가 가진  
 목록에 등록되어 있어야 한다. 마치 유튜버가 구독자목록을 가지고 있듯이.  
@@ -103,7 +104,7 @@ class User: Observer {
     func printSubscribes() {
         print("\(self.id) is subscring to \(subjectIds.count) subjects")
     }
-}
+}   // END User
 
 class Youtuber: Subject {
     var id: String
@@ -112,7 +113,7 @@ class Youtuber: Subject {
     init(_ id:String) {
         self.id = id
     }
-    
+
     func notify(_ message: String) {
         let msg = Message(self.id, message)
         for i in observers {
@@ -146,7 +147,7 @@ class Youtuber: Subject {
             print(i.id)
         }
     }
-}
+}   // END Youtuber
 
 struct Message {
     let subject : String
@@ -264,16 +265,17 @@ Subject 의 알람 기능에는 과도한 오버로드가 발생하지 않도록
 
 멀티스레드를 사용한 비동기 방식을 생각할 수도 있지만  
 Subject 가 특정 Observer 에 정의된 onNotify() 를 실행하는 상황에서  
-쓰레드의 Lock 이 해제되지 않는다면 다른 Observer 들이 실행되지 못해  
-전체 시스템이 꼬여버릴수 있고 대상자와 수많은 관찰자 사이에서 발생하는  
+쓰레드의 Lock 이 해제되지 않는다면 다른 Observer 들이 알람을 받지못해  
+전체 시스템이 꼬여버릴수 있고, 대상자와 수많은 관찰자 사이에서 발생하는  
 오류를 파악하기 위해서는 런타임 환경에서 동적인 실행과정을 확인해야만 한다.  
 비동기 방식을 사용하고 싶다면 이벤트 큐 패턴을 사용하는 것을 고려해보자.  
 
 위의 코드에서는 Message 객체에 Subject.id 만 저장했지만  
-관찰자들에게 Notifiaciton 을 보낼때 파라미터 중 하나로  
+관찰자들에게 Notifiaciton 을 보낼때는 파라미터 중 하나로  
 이벤트 Sender 인 self 를 추가하는 것이 일반적이다.  
 <br>
 
+<!---
 ### NotificationCenter in iOS (on going)
 iOS 환경에서 옵저버 패턴으로 사용되는 NotificationCenter를 살펴보자.     
 
@@ -312,5 +314,5 @@ deinit {
     }
 }
 ```
-
+-->
 <br>
