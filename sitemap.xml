@@ -2,43 +2,11 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    
-    <!-- Web -->
-    <url>
-        <loc>https://nicemiro.github.io/posts/web/2022-03-11-first%20GitPage</loc>
-        <lastmod>2022-03-11T00:00:00+09:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <!-- Desin_Pattern -->
-    <url>
-        <loc>https://nicemiro.github.io/posts/design_pattern/2022-03-17-delegationPattern</loc>
-        <lastmod>2022-03-17T00:00:00+09:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    
-    <!-- iOS -->
-    <url>
-        <loc>https://nicemiro.github.io/posts/ios/2022-03-15-ManagingModelDataInView</loc>
-        <lastmod>2023-03-25T00:00:00+09:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <!-- Thought -->
-    <url>
-        <loc>https://nicemiro.github.io/posts/thought/2022-04-24-thought_%08SoloDevelopment</loc>
-        <lastmod>2023-03-28T00:00:00+09:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
 
     <!-- Sudoku_Tales_Refine -->
     <url>
         <loc>https://nicemiro.github.io/pages/projects/sudoku_tales_refine/</loc>
-             
+             https://nicemiro.github.io/pages/projects/sudoku_tales_refine/
         <lastmod>2024-08-13T00:00:00+09:00</lastmod>
         <changefreq>weekly</changefreq>        
         <priority>0.5</priority>
@@ -47,15 +15,8 @@
     <!-- Sudoku_Tales_-->
     <url>
         <loc>https://nicemiro.github.io/pages/projects/sudoku_tales/</loc>
+        https://nicemiro.github.io/pages/projects/sudoku_tales/
         <lastmod>2024-08-13T00:00:00+09:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <!-- GameDev -->
-    <url>
-        <loc>https://nicemiro.github.io/posts/gameDev/2024-03-29-gameDev_vectorTranslation</loc>
-        <lastmod>2024-03-31T00:00:00+09:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
