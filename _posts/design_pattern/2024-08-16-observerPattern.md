@@ -238,56 +238,17 @@ class User: Observer {
 
 ```
 
-강한 참조로 인한 메모리 Leak 에 대한 걱정보다는 오히려 목록상의 관찰자들을 순환하며 알람을 날리는 시점의 동기화(Sync) 로 인해 발생할 수 있는 딜레이를 더 신경 써야한다. Subject 의 이벤트 알람 기능에는 과도한 오버로드가 발생하지 않도록 주의하자. 또한 이미 구독취소한 Observer 가 아직 목록에 남아 있다면 필요없는 알람으로 리소스가 낭비되거나 비어있는 옵저버의 포인터 공간을 건드리게 되는 치명적인 오류가 발생할 수 있다. (deinit 의 사용을 고려하자)  
+### 주의할 점
 
-멀티스레드를 사용한 비동기 방식을 생각할 수도 있지만 Subject 가 특정 Observer 에 정의된 onNotify() 를 순회하는 도중 쓰레드의 Lock 헤제되지 않는 상황이 발생하면 나머지 Observer 가 알람을 받지못해 전체 시스템이 멈춰버릴 수 있고, 대상자와 수많은 관찰자 사이에서 발생하는 오류를 파악하기 위해서는 결국 런타임 환경에서 동적인 실행과정을 확인해야만 한다. 비동기 방식을 사용하고 싶다면 이벤트 큐 패턴을 사용하는 것을 고려해보자.  
+* 강한 참조로 인한 메모리 Leak 에 대한 걱정보다는 오히려 목록상의 관찰자들을 순환하며 알람을 날리는 시점의 동기화(Sync) 로 인해 발생할 수 있는 딜레이를 더 신경 써야한다. Subject 의 이벤트 알람 기능에는 과도한 오버로드가 발생하지 않도록 주의하자. 또한 이미 구독취소한 Observer 가 아직 목록에 남아 있다면 필요없는 알람으로 리소스가 낭비되거나 비어있는 옵저버의 포인터 공간을 건드리게 되는 치명적인 오류가 발생할 수 있다. (deinit 의 사용을 고려하자)  
 
-위의 코드에서는 Message 객체에 Subject.id 만 저장했지만 관찰자들에게 보내는 Notifiaciton 의 파라미터로 이벤트 Sender 인 self 를 추가하는 것이 일반적이다.  
+* 멀티스레드를 사용한 비동기 처리와 같은 복잡한 시스템에 사용하기 어렵다. 하나의 스레드가 Notification을 처리하는 과정에서 락이 헤제되지 않는 상황, 대상자와 수많은 관찰자들 간에 발생할 수 있는 문제 해결을 위해서는 결국 옵저버 패턴을 확장한 이벤트 큐 패턴을 사용하게 된다.  
 
-* 대상자가 관찰자와 정적으로 묶이지 않고 낮은 커플링으로 동작하며 상호작용 할 수 있다는 옵저버 패턴의 장점은, 관찰자가 많아질 경우 데이터의 흐름을 확인하기 불편할 수 있다는 단점이 되기도 한다.   
+* 대상자가 관찰자와 정적으로 묶이지 않고 낮은 커플링으로 동작하며 상호작용 할 수 있다는 옵저버 패턴의 장점은, 관찰자가 많아질 경우 데이터의 흐름을 확인하기 불편할 수 있다는 단점이 된다.
 
-* 같은 기능을 구현하는 코드들은 결합도가 낮다고 하더라도 결국 하나의 모듈로 응집시켜 사용하는 것이 편리하다. 옵저버 패턴은 그보다 서로 연관없는 코드들 사이의 상호작용이 필요할 때 더 쓰임세가 많다.  
+* 요청과 처리 방식이 제한되어 있고 대상자를 구독한 모든 옵저버에 브로드캐스트 되기 때문에 UI 변경 이벤트와 같은 복잡도가 낮은 작업에 사용하기 좋다.  
 
-<br>
+* 같은 기능을 구현하는 코드들은 결합도가 낮다고 하더라도 결국 하나의 모듈로 응집시켜 사용하는 것이 편리하다. 옵저버 패턴은 그보다 서로 연관없는 코드들 사이의 상호작용이 필요할 때 더 쓰임세가 많다. (물리엔진 모듈에 업적시스템의 코드가 지저분하게 섞이지 않을 수 있음)  
 
-<!---
-### NotificationCenter in iOS (on going)
-iOS 환경에서 옵저버 패턴으로 사용되는 NotificationCenter를 살펴보자.     
 
-```swift
-// GameScene 에서 delegate 으로 호출됨. 성공시 notifyRewarded() 실행
-func showRewardedAd() {
-    guard let rewardedAdObj = rewardedAd else {
-        return print("Ad wasn't ready.")
-    }
-    // call back after user is rewarded
-    rewardedAdObj.present(fromRootViewController: nil) {
-        self.notifyRewarded()
-    }
-}
-
-// subscriber (gameScene) 에게 notify 
-@objc func notifyRewarded() {
-    NotificationCenter.default.post(name: Notification.Name("CustomNotification"), object: nil, userInfo: ["message": "Hello from MainViewController!"])
-}
-```
-GameScene.swift
-```swift
-init {
-    NotificationCenter.default.addObserver(self, selector:  #selector(handleNotification(_:)), name: Notification.Name
-    ("CustomNotification"), object: nil)
-}
-
-deinit {
-    NotificationCenter.default.removeObserver(self)
-}
-
-@objc func handleNotification(_ notification: Notification) {
-    if let userInfo = notification.userInfo, let message = userInfo["message"] as? String {
-        // 알림 수신 시 처리할 로직
-        print("Received notification with message: \(message)")
-    }
-}
-```
--->
 <br>
