@@ -11,57 +11,38 @@ published: true
 
 ### Jekyll 환경설정 (Environment Setup)
 #### Ruby 설치  
-맥은 기본적으로 Ruby가 설치되어 있음.
+맥에 기본적으로 설치된 Ruby 버젼을 확인하고 최신버젼으로 업데이트하자.
 
 ```terminal
 babyK@macbook ~ % ruby -v
 ruby 3.1.1p18 (2022-02-18 revision 53f5fc4236) [x86_64-darwin21]
 babyK@macbook ~ % gem -v
 3.3.7
-```  
-
-hombrew를 사용하여 최신버젼으로 설치
-```terminal
 babyK@macbook ~ % brew install ruby
 ```
-<br>
-#### bundler, jekyll 설치
-[Jekyll][2]은 Ruby언어를 사용하여 만들어진 정적 사이트 생성 툴(Static site builder)이며  
-[Liquid][1] 문법을 사용하여 웹페이지를 만들 수 있게 해준다.  
-Github의 공동 설립자가 만들었으며 Github page에 default로 적용되어 사용되고 있다.    
 
+#### [Bundler][2]{:target="_blank"}, [Jekyll][1]{:target="_blank"} 설치
+jekyll을 사용해 Github page에 업로드할 홈페이지를 만들어보자.  
+Ruby Gem들의 의존성을 관리할 수 있는 bundler를 설치한다.  
 
-<br>
-Bundler는 node js의 npm 같은 패키지 매니져인듯.
-> 'Bundler provides a consistent environment for Ruby projects by tracking and installing the exact gems and versions that are needed'  
-<br>
-
-**Bundler install**
 ```terminal
 babyK@macbook ~ % gem install bundler
 ```
 
-**Jekyll install**
 ```terminal
 babyK@macbook ~ % gem install jekyll bundle
-```
-
-**Jekyll version check**
-```terminal
 babyK@macbook ~ % jekyll -v
 ```
-* `GemNotFound` 에러 발생시 'bundle' or 'bundle install' 입력. GemFile 안에 등록된 gem 들이 설치됨.
 
-bundle install 커맨드는 Gemfile 안에 리스트업 되어 있는 버전의 Gem들을 설치해준다.  
-설치하면서 각 버전들의 dependency를 체크하고 Gemfile.lock 파일을 생성해주는데  
-`bundle exec jekyll serve` 를 입력하여 jekyll 서버를 실행하면  
-Gemfile.lock 에 명시된 Gem(라이브러리) 버젼들을 사용해서 실행하게 된다.  
-이렇게 하면 작성된 페이지를 다른 환경에 업로드 할때도 버전 충돌을 방지할 수 있다.  
+* `GemNotFound` 에러 발생시 'bundle' or 'bundle install' 입력.  
 
+bundle install 커맨드는 Gemfile 안에 리스트업 되어 있는 Gem의 의존성을 체크하고  
+최종 라이브러리 리스트인 Gemfile.lock 파일을 생성한다.  
+설치중 버젼과 관련한 문제발생시 단순하게 'bundle update' 명령으로  
+Gem을 모두 업데이트 해보자.  
 <br>
 
-**Jekyll 폴더 생성**  
-gitRepo 폴더 밑에 testPage로 생성.
+**Jekyll 폴더 생성** 
 ```terminal
 babyk@Ks-macbook gitRepo % jekyll new testPage
 Running bundle install in /Users/babyk/workspace/gitRepo/testPage...
@@ -167,19 +148,21 @@ Configuration file: /Users/babyk/workspace/gitRepo/testPage/_config.yml
 
 <br>
 **웹페이지 확인**  
-디폴트 주소는 http://localhost:4000가 사용되며 포트변경시 'jekyll serve --port 0000' 와 같이 변경할 포트번호를 입력한다.  
+디폴트 주소 : http://localhost:4000  
+
+포트변경
+```terminal
+babyk@Ks-macbook testPage % jekyll serve --port 0000  
+```
+
 실행중인 제킬 서버를 CTRL + C 로 종료하지 않고 다시 실행하면 포트가 이미 사용중이라며 오류가 발생할 수 있다.  
-이때는 포트번호를 변경하거나 시스템 모니터를 보고 프로세스를 직접 kill 해줘야 한다.  
+이때는 포트번호를 변경하거나 직접 실행중인 프로세스를 종료해야 한다.  
 
 <img src="/img/minimaPic.png" >
 
 <br>
-기본테마인 minima 가 적용되어 있다.  
-폰트 가독성과 화면구성이 꽤 훌륭한 테마라서 사이드메뉴 하나만 추가하고 사용해도 괜찮을 것 같다.  
-Jekyll을 사용해 로컬에서 생성한 웹페이지를 Github 사이트에 올려 GithubPage에서 띄우면 곧바로 훌륭한 홈페이지가 만들어진다.
-
+GithubPage에 올려 즉시 사용할 수 있는 홈페이지가 만들어졌다.  
 <br>
 
-[1]: https://shopify.github.io/liquid/
-[2]: https://jekyllrb.com/
-
+[1]: https://jekyllrb.com/
+[2]: https://bundler.io/
