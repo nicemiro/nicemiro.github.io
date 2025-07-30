@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockDrop</title>
+    <style>
+        .gameWindow {
+            display:flex;
+            gap: 20px; 
+            align-items: flex-start;
+            z-index: 2;
+        }
+        #modal {
+            position:absolute;
+            display:none;
+            align-items: center;
+            justify-content: center;
+            width:30%;
+            height:30%;
+            background-color: rgba(0,0,0,0.4);
+            z-index: 4;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 2px solid #333;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="gameWindow">
+        <canvas id="tetrisCanvas"></canvas>
+        <canvas id="previewCanvas"></canvas>
+    </div>
+
+    <div class="modal" id="modal">
+        <h2>GAME OVER</h2>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const rectSize = 30;
+            const gameCanvas = document.getElementById('tetrisCanvas');
+            gameCanvas.width = 10 * rectSize;
+            gameCanvas.height = 22 * rectSize;
+
+            const previewCanvas = document.getElementById('previewCanvas');
+            previewCanvas.width = 4 * rectSize;
+            previewCanvas.height = 4 * rectSize;
+
+            const modalGameOver = document.getElementById('modal');
+            const ctx = gameCanvas.getContext('2d');
+            const ctxPreview = previewCanvas.getContext('2d');
+
+            let currentShape = {};
+            let shapeQueue = [];
+            let requestAnimationId;
+            let isInputValid = true;
+            let rectBorderColor1 = "#4a4752";   // 도형의 스트로크 색상
+            let rectBorderColor2 = "#f8f9fa";   // 화면그리드 스트로크 색상
+            let defaultRectColor = "white";     // 배경화면 색상
+            let hiddenRectColor = "#eeeeee";    // 히든 배경화면 색상 (맨위 두줄)
+
+            let deltaTime = 0;  // update()
+            let lastTime;   // update()
+
+            let gameScreenArray = new Array(220);
+            for (let i = 0; i < 220; i++) {
+                gameScreenArray[i] = {value: 0, color: defaultRectColor};
+            }
+
+            const colors = [
+                "#4fdada",  // 0: I
+                "#f0e64f",  // 1: O
+                "#c050c0",  // 2: T
+                "#50d250",  // 3: S
+                "#e05252",  // 4: Z
+                "#5c5cff",  // 5: J
+                "#f4a742"   // 6: L
+            ];
+
+            // 테트리스 블록 모양 정의
+            const SHAPES = { 
+                I: {
+                    type: 'I',
+                    matrix: [
+                        0, 0, 0, 0,
+                        1, 1, 1, 1,
+                        0, 0, 0, 0,
+                        0, 0, 0, 0
+                    ],
+                    size: 4,
+                    color: colors[0]
+                },
+                O: {
+                    type: 'O',
+                    matrix: [
+                        1, 1,
+                        1, 1
+                    ],
+                    size: 2,
+                    color: colors[1]
+                },
+                T: {
+                    type: 'T',
+                    matrix: [
+                        0, 1, 0,
+                        1, 1, 1,
+                        0, 0, 0
+                    ],
+                    size: 3,
+                    color: colors[2]
+
+                },
+                S: {
+                    type: 'S',
+                    matrix: [
+                        0, 1, 1,
+                        1, 1, 0,
+                        0, 0, 0
+                    ],
+                    size: 3,
+                    color: colors[3]
+                },
+                Z: {
+                    type: 'Z',
+                    matrix: [
+                        1, 1, 0,
+                        0, 1, 1,
+                        0, 0, 0
+                    ],
+                    size: 3,
+                    color: colors[4]
+
+                },
+                J: {
+                    type: 'J',
+                    matrix: [
+                        1, 0, 0,
+                        1, 1, 1,
+                        0, 0, 0
+                    ],
+                    size: 3,
+                    color: colors[5]
+                },
+                L: {
+                    type: 'L',
+                    matrix: [
+                        0, 0, 1,
+                        1, 1, 1,
+                        0, 0, 0
+                    ],
+                    size: 3,
+                    color: colors[6]
+                }
+            };
+
+            const CollisionType = {
+                OK: 0,      // no collision
+                WALL: 1,    // left right screen edge
+                BLOCK: 2,   // stacked block
+            };
+
+            // 사각형 그리기 함수
+            function drawRectangle(x, y, color) {
+                ctx.beginPath();
+                ctx.fillStyle = color;
+                ctx.fillRect(x * rectSize, y * rectSize, rectSize, rectSize);
+                ctx.strokeStyle = (color === defaultRectColor || color === hiddenRectColor) ? rectBorderColor2 : rectBorderColor1;
+                ctx.strokeRect(x * rectSize, y * rectSize, rectSize, rectSize);
+            }
+
+            // 게임 화면 그리기 함수
+            function drawGameScreen() {
+                for (let i = 0; i < 22; i++) {
+                    for (let j = 0; j < 10; j++) {
+                        let rectColor = i < 2 ? hiddenRectColor : gameScreenArray[i * 10 + j].color
+                        drawRectangle(j, i, rectColor);
+                    }                    
+                }
+            }
+            
+            // 낙하중인 도형 그리기 함수
+            function drawCurrentShape() {
+                if (Object.keys(currentShape).length <= 0) {
+                    return;
+                }
+                let size = currentShape.size;
+
+                for(let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if(currentShape.matrix[i*size + j] === 1) {
+                            let currentLocation = currentShape.location + j + i * 10;
+                            let x = currentLocation % 10;
+                            let y = Math.floor(currentLocation / 10);
+                            let rectColor = currentShape.matrix[(i*size) + j] === 1 ? currentShape.color : defaultRectColor;
+                            drawRectangle(x, y, rectColor);
+                        }
+                    }
+                }
+            }
+
+            // 다음 도형 미리보기 그리기
+            function drawNextShape() {
+                // 초기화
+                for (let i = 0; i < 4; i++) {
+                    for (let j = 0; j < 4; j++) {
+                        drawPreviewRect(i, j, defaultRectColor);
+                    }
+                }
+                
+                let shape = {...shapeQueue[0]};
+                let size = shape.size;
+                let matrix = [...shape.matrix];
+                
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        let color = matrix[i*size + j] === 1 ? shape.color : defaultRectColor;
+                        drawPreviewRect(i, j, color);
+                    }                    
+                }
+            }
+
+            function drawPreviewRect(x, y, color) {
+                ctxPreview.beginPath();
+                ctxPreview.fillStyle = color;
+                ctxPreview.fillRect(x * rectSize, y * rectSize, rectSize, rectSize);
+                ctxPreview.strokeStyle = (color === defaultRectColor || color === hiddenRectColor) ? rectBorderColor2 : rectBorderColor1;
+                ctxPreview.strokeRect(x * rectSize, y * rectSize, rectSize, rectSize);
+            }
+
+            // 도형 회전 함수
+            function tryRotation(direction) {
+                let size = currentShape.size;
+                let newMatrix = new Array(size * size);
+
+                // 4회전
+                // >> 회전 후 위치 => [행번호 -> 행번호의 역순으로 열에 대입, 열번호 -> 행번호]
+                // ex 우측회전일때 (1,1) -> (1,3)
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        let value = currentShape.matrix[(i * size) + j];
+                        if (direction === 'Right')
+                        {
+                            newMatrix[j * size + (size - 1 - i)] = value;
+                        }
+                        else if (direction === 'Left')
+                        {
+                            newMatrix[(size - 1 - j) * size + i] = value;
+                        }
+                    }
+                }
+
+                let newRotationNum = direction === 'Right'
+                            ? (currentShape.rotationNum + 1) % 4
+                            : (currentShape.rotationNum + 3) % 4;
+
+                const shape_rotation = {...currentShape, matrix: [...newMatrix], rotationNum: newRotationNum};
+                const resultCollision = checkCollision(shape_rotation);
+
+                // TODO : WALL KICK
+
+                if (resultCollision === CollisionType.OK) {
+                    currentShape = {...shape_rotation};
+                }
+            }
+            
+            // 도형생성, 큐에 넣기
+            function generateShape() {
+                if (!isInputValid) {
+                    return;
+                }
+                if (shapeQueue.length <= 1) {
+                    for (const key in SHAPES) {
+                        const shape = SHAPES[key];
+                        shapeQueue.push({
+                            type: shape.type,
+                            matrix: [...shape.matrix],
+                            size: shape.size,
+                            color: shape.color,
+                            rotationNum: 0,
+                            location:   // 스폰 좌표 
+                            shape.type === 'I' ? 3 : 
+                            shape.type === 'O' ? 4 :
+                            shape.type === 'T' ? 4 :
+                            shape.type === 'S' ? 4 :
+                            shape.type === 'Z' ? 4 :
+                            shape.type === 'J' ? 4 :
+                            shape.type === 'L' ? 4 : 4
+                        });
+                    }
+                    // 셔플
+                    for (let i = shapeQueue.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [shapeQueue[i], shapeQueue[j]] = [shapeQueue[j], shapeQueue[i]];
+                    }
+                }
+                
+                // 스폰위치에 블록이 존재하는가. 게임오버 체크
+                let collisionCheckShape = shapeQueue.shift();
+                const tempShape = {collisionCheckShape, matrix : [collisionCheckShape.matrix], location: collisionCheckShape.location+10};
+                const resultCollision = checkCollision(tempShape);
+                if (resultCollision === CollisionType.BLOCK)
+                {
+                    handleGameOver();
+                }
+                else
+                {
+                    currentShape = collisionCheckShape;
+                    drawNextShape();   
+                }
+            }
+
+            function handleGameOver() {
+                if (!isInputValid) {
+                    return;
+                }
+                cancelAnimationFrame(requestAnimationId);
+                isInputValid = false;
+                // console.log('GAME OVER');
+                modalGameOver.style.display = "flex";
+            }
+
+            function dropShape() {
+                // 블록 낙하
+                if (!isInputValid) {
+                    return;
+                }
+                let shape_update = {...currentShape, location: currentShape.location+10};
+                const resultCollision = checkCollision(shape_update);
+                if (resultCollision === CollisionType.BLOCK)
+                {
+                    lockCurrentShape();
+                    generateShape();
+                }
+                else
+                {   
+                    currentShape.location = currentShape.location + 10;
+                }
+            }
+            
+            function update(currentTime) {
+                deltaTime += (currentTime - lastTime) / 1000;
+                if (deltaTime > 1) {
+                    dropShape();
+                    deltaTime = 0;
+                }
+                lastTime = currentTime;
+            }
+
+            // 화면렌더링
+            function renderGame() {
+                drawGameScreen();
+                drawCurrentShape();
+            }
+            
+            function runGameLoop() {
+                update(performance.now());
+                renderGame();
+                requestAnimationId = requestAnimationFrame(runGameLoop);
+            }
+
+            // 충돌감지
+            function checkCollision(shape) {
+                let xStart = shape.location % 10;
+                let yStart = Math.floor(shape.location / 10);
+
+                for (let i = 0; i < shape.size; i++) {
+                    for (let j = 0; j < shape.size; j++) {
+                        let shapeLocation = i * shape.size + j;
+
+                        // 블럭이 있는 메트릭스만 검사
+                        if ( shape.matrix[shapeLocation] === 1 ) {
+                            const screenLocation = (yStart + i) * 10 + (xStart + j);
+                            
+                            // 1. 탑바텀 화면아웃 체크 (BLOCK)
+                            const isOutOfTopBounds = (shape.location < 0);
+                            const isOutOfBottomBounds = (screenLocation >= 220);
+                             if (isOutOfBottomBounds || isOutOfTopBounds) { return CollisionType.BLOCK; };
+
+                            // 2. 블록충돌 검사 (BLOCK)
+                            const isCollision = (gameScreenArray[screenLocation]?.value === 1);
+                            if (isCollision) {return CollisionType.BLOCK;};
+
+                            // 3. 회전충돌 (WALL)
+                            const isRotating = currentShape.rotationNum !== shape.rotationNum;
+                            if (isRotating) {
+                                let x = xStart + j;
+                                let y = yStart + i;
+
+                                // RIGHT, LEFT, BOTTOM
+                                if (x > 9 || x < 0 || y >= 22 || isCollision) {   
+                                    return CollisionType.WALL;
+                                }
+                            }
+
+                            // 4. 좌우 이동 벽 충돌 (WALL)
+                           const isLeftWallCollision = (currentShape.location - shape.location === 1 && screenLocation % 10 === 9);
+                           const isRightWallCollision = (currentShape.location - shape.location === -1 && screenLocation % 10 === 0); 
+                           if(isLeftWallCollision || isRightWallCollision) { return CollisionType.WALL; };
+                        }
+                    }
+                }
+                return CollisionType.OK;
+            }
+
+            // 화면에 쌓기
+            function lockCurrentShape() {
+                let matrix = currentShape.matrix;
+                let size = currentShape.size;
+                let xStart = currentShape.location % 10;
+                let yStart = Math.floor(currentShape.location / 10);
+
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        if (matrix[i * size + j] === 1) {
+                            let currentLocation = (yStart + i) * 10 + (xStart + j);
+                            gameScreenArray[currentLocation].value = 1;
+                            gameScreenArray[currentLocation].color = currentShape.color;
+                        }
+                    }
+                }
+                clearLines();   // 채워진 라인 삭제
+
+                // 게임오버체크. 히든 스페이스 2줄 체크
+                let isGameOver = false; 
+                for (let i = 0; i < 20; i++) {
+                    if (gameScreenArray[i].value === 1) {
+                        isGameOver = true;
+                        break;
+                    }
+                }
+                if (isGameOver) {
+                    handleGameOver();
+                }
+            }
+
+            // 채워진 행 삭제
+            function clearLines() {
+                if (!isInputValid) {
+                    return;
+                }
+                let row = 21;
+                while(row > -1) {
+                    let isFull = true;
+                    for (let i = 0; i < 10; i ++) {
+                        if (gameScreenArray[row * 10 + i].value === 0) {
+                            isFull = false;
+                            break;
+                        }
+                    }
+                    if (isFull) 
+                    {
+                        for (let i = row; i > 0; i--) {
+                            for (let j = 0; j < 10; j++) {
+                                gameScreenArray[i * 10 + j].value = gameScreenArray[((i - 1) * 10) + j].value;
+                                gameScreenArray[i * 10 + j].color = gameScreenArray[((i - 1) * 10) + j].color;
+                            }
+                        }
+                    } 
+                    else
+                    {
+                        row--;
+                    }
+                }
+            }
+
+            function startGame() {
+                lastTime = performance.now();
+                generateShape();
+                runGameLoop();
+
+                let resultCollision;
+                // 유저 키입력
+                this.addEventListener("keydown", (event) => {
+                    if (Object.keys(currentShape).length === 0 || !isInputValid) {
+                        return;
+                    }
+                    
+                    switch(event.code) {
+                        case 'Space':    // spacebar. hardDrop
+                            let shape_hardDrop = {...currentShape, location: currentShape.location+10};
+                            shape_hardDrop.matrix = [...currentShape.matrix];
+
+                            while (checkCollision(shape_hardDrop) !== CollisionType.BLOCK) {
+                                shape_hardDrop.location += 10;
+                                currentShape.location += 10;
+                            }
+                            lockCurrentShape();
+                            generateShape();
+                            break;
+
+                        case 'ArrowLeft':    // arrowLeft
+                            const shape_moveLeft = {...currentShape, location: currentShape.location-1};
+                            resultCollision = checkCollision(shape_moveLeft);
+                            if (resultCollision === CollisionType.OK) {
+                                currentShape.location = currentShape.location - 1;
+                            }
+                            break;
+
+                        case 'ArrowRight':    // arrowRight    
+                            const shape_moveRight = {...currentShape, location: currentShape.location+1};
+                            resultCollision = checkCollision(shape_moveRight);
+                            if (resultCollision === CollisionType.OK) {
+                                currentShape.location = currentShape.location + 1;
+                            }
+                            break;
+
+                        case 'ArrowDown':    // arrowDown
+                            const shape_softDrop = {...currentShape, location: currentShape.location+10};
+                            resultCollision = checkCollision(shape_softDrop); 
+                            if (resultCollision === CollisionType.BLOCK)
+                            {
+                                lockCurrentShape();
+                                generateShape();   
+                            }
+                            else
+                            {
+                                currentShape.location = currentShape.location + 10;
+                            }
+                            break;
+
+                        case 'KeyZ':
+                        case 'KeyX':
+                        case 'ArrowUp':
+                            if (currentShape.type !== 'O') {
+                                const leftOrRight = event.code === 'KeyZ' ? 'Left' : 'Right';
+                                tryRotation(leftOrRight);
+                            }
+                        break;
+
+                        default:
+                            break;
+                        }
+                    }        
+                );
+            }
+
+            startGame();
+        };
+    </script>
+</body>
+</html>

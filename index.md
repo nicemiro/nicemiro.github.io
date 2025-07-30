@@ -1,9 +1,7 @@
 ---
 layout: home
 ---
-<br>
-
-### Sudoku Tales Refine Release for iOS.
+#### *Sudoku Tales Refine Release for iOS*
 
 <div class="row" align="center">
   <div class="column" >
@@ -20,12 +18,10 @@ layout: home
 <img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg" style="width:40%;height:40%">
 </div>
 
-<br>
-#### 매일매일 틈틈이 스도쿠 하세요! 버스안에서, 지하철에서, 카페에서도 스도쿠! 스도쿠 리파인!
-#### Sudoku every day! Play Sudoku whenever you have a moment, whenever you can! Sudoku Tales Refine!  
+##### 매일매일 틈틈이 스도쿠 하세요! 버스안에서, 지하철에서, 카페에서도 스도쿠! 스도쿠 리파인!
+##### Sudoku every day! Play Sudoku whenever you have a moment, whenever you can! Sudoku Tales Refine!  
+<hr>
+### LATEST POSTS
 
-##### - Play Sudoku with beautiful BGM!  
-##### - Use your brainpower to unlock amazing images!
-##### - Enjoy Sudoku on the subway, bus, or at the café! Sudoku, Sudoku!
-
+[The Blocks](/posts/gameDev/2025-07-25-gameDev_blocks)
 <br>
