@@ -41,9 +41,32 @@ published: true
   </tr>
 </table>
 
-<a href="/source/blocks.html" target="_blank">
-  <button>PLAY</button>
-</a>
+<div style="display: flex; gap: 20px;">
+    <a href="/source/blocks.html" target="_blank">
+    <button>PLAY</button>
+    </a>
+    <a>
+    <button onclick="showHtmlInNewTab()">Source코드</button>
+    </a>
+</div>
+
+
+<script>
+    function showHtmlInNewTab() {
+      fetch('/source/blocks.html')
+        .then(res => res.text())
+        .then(data => {
+          const encodedHtml = data
+            .replace(/</g, '&lt;')  
+            .replace(/>/g, '&gt;');
+
+          const newWindow = window.open();
+          newWindow.document.write(`<pre style="white-space:pre-wrap; word-wrap:break-word;">${encodedHtml}</pre>`);
+          newWindow.document.close();
+        });
+    }
+</script>
+
 
 <br>
 전세계 사람들이 즐기는 전설적인 그 게임을 만들어보자.  
@@ -52,7 +75,7 @@ published: true
 충돌감지, 키조작, 좌표 및 화면출력과 같은 모든 게임의 기본이 되는 기능들이 필요하기 때문에 게임코드의 구조를 익히기에도 좋다.  
  
 게임 업데이트 로직은 [requestAnimationFrame][2]{:target="_blank"} 메소드를 사용한다.  
-자바스크립트는 기본적으로 **싱글스레드 + 이벤트 루프기반 비동기처리** 방식이기 때문에 자바나 C와 같이 while 문을 사용하면 사용자 입력이나 화면 처리가 불가능해지고 [setInterval] [3]{:target="_blank"} 함수를 사용하면 딜레이가 생길 수도 있어 정확한 타이머 동작이 요구되는 게임에는 권장되지 않는다. ( setInterval 은 이벤트 루프상에서 우선순위가 낮기 때문에 처리가 뒤로 밀릴수도 있다)
+자바스크립트는 기본적으로 **싱글스레드 + 이벤트 루프기반 비동기처리** 방식이기 때문에 자바나 C와 같이 while 문을 사용하면 사용자 입력이나 화면 처리가 불가능해지고 [setInterval][3]{:target="_blank"} 함수를 사용하면 딜레이가 생길 수도 있어 정확한 타이머 동작이 요구되는 게임에는 권장되지 않는다. ( setInterval 은 이벤트 루프상에서 우선순위가 낮기 때문에 처리가 뒤로 밀릴수도 있다)
 
 ### 1. 게임로직
 ```javascript
@@ -393,4 +416,3 @@ function clearLines() {
 [1]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 [2]: https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
 [3]: https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
-[4]: /source/blocks.html

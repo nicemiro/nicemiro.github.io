@@ -38,7 +38,7 @@
 </head>
 <body>
     <div class="gameWindow">
-        <canvas id="tetrisCanvas"></canvas>
+        <canvas id="gameCanvas"></canvas>
         <canvas id="previewCanvas"></canvas>
     </div>
 
@@ -49,7 +49,7 @@
     <script>
         window.onload = function() {
             const rectSize = 30;
-            const gameCanvas = document.getElementById('tetrisCanvas');
+            const gameCanvas = document.getElementById('gameCanvas');
             gameCanvas.width = 10 * rectSize;
             gameCanvas.height = 22 * rectSize;
 
@@ -88,7 +88,7 @@
                 "#f4a742"   // 6: L
             ];
 
-            // 테트리스 블록 모양 정의
+            // 블록 모양 정의
             const SHAPES = { 
                 I: {
                     type: 'I',
