@@ -83,6 +83,8 @@ GEM
       jekyll (>= 3.7, < 5.0)
     jekyll-sass-converter (3.1.0)
       sass-embedded (~> 1.75)
+    jekyll-sitemap (1.4.0)
+      jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
     jemoji (0.13.0)
@@ -161,6 +163,7 @@ DEPENDENCIES
   http_parser.rb (~> 0.8.0)
   jekyll (= 4.4.1)
   jekyll-feed
+  jekyll-sitemap
   jemoji
   kramdown-parser-gfm
   webrick
