@@ -15,7 +15,7 @@ layout: home
 </div>
 
 <div class="screenShots" align="center">
-<img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg" style="width:40%;height:40%">
+<img src="/img/sudokuTales/SudokuTalesRefineShot01.jpeg" style="width:30%;height:30%">
 </div>
 
 ##### 매일매일 틈틈이 스도쿠 하세요! 버스안에서, 지하철에서, 카페에서도 스도쿠! 스도쿠 리파인!
