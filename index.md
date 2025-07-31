@@ -10,9 +10,9 @@ layout: home
     <h5 style="color: #4B5563; margin: 0.5; font-style: italic;">Sudoku Tales Refine for iOS</h5>
   </div>
 
-  <div class="row" style="display: flex; align-items: center; justify-content: left; gap: 10px; flex-wrap: wrap;">
-    <div style="width: 100px; aspect-ratio: 1/1;">
-      <img src="/img/sudokuTales/sudokuTalesRefine_icon.jpeg" style="width: 80%; height:auto; border-radius: 20px;">
+  <div class="row" style="display: flex; align-items: center; justify-content: left; gap: 2px; flex-wrap: wrap;">
+    <div style="width: 90px; aspect-ratio: 1/1;">
+      <img src="/img/sudokuTales/sudokuTalesRefine_icon.jpeg" style="width: 90%; height:auto; border-radius: 20px;">
     </div>
     <a href="https://apps.apple.com/us/app/sudoku-tales-refine/id6547845536" target="_blank">
       <img src="/img/appleBadge/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" style="height: 40px;">
@@ -29,9 +29,9 @@ layout: home
     <h5 style="color: #4B5563; margin: 0.5; font-style: italic;">Sudoku Tales for iOS</h5>
   </div>
 
-  <div class="row" style="display: flex; align-items: center; justify-content: left; gap: 10px; flex-wrap: wrap;">
-    <div style="width: 100px; aspect-ratio: 1/1;">
-      <img src="/img/sudokuTales/sudokuTales_icon.jpeg" style="width: 80%; height: auto; border-radius: 20px;">
+  <div class="row" style="display: flex; align-items: center; justify-content: left; gap: 2px; flex-wrap: wrap;">
+    <div style="width: 90px; aspect-ratio: 1/1;">
+      <img src="/img/sudokuTales/sudokuTales_icon.jpeg" style="width: 90%; height: auto; border-radius: 20px;">
     </div>
     <a href="https://apps.apple.com/us/app/sudoku-tales/id6479256294" target="_blank">
       <img src="/img/appleBadge/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" style="height: 40px;">
