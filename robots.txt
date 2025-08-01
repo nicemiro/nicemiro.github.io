@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
 User-agent: Google-adstxt
-Disallow:
-
 Sitemap: https://nicemiro.github.io/sitemap.xml
