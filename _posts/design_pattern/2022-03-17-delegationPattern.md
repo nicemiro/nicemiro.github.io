@@ -6,6 +6,7 @@ date: 2022-03-17
 category: Design_Pattern
 tags: [DesignPattern]
 layout: post
+published: true
 ---
 
 OOP가 등장하고 상속의 편리함을 누리던 개발자들은 슬슬 상속된 클래스들의 문제점을 발견하기 시작했다.  
