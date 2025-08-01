@@ -42,15 +42,13 @@ permalink:        /:categories/:year-:month-:day-:title:output_ext
 exclude:
   - _drafts
 
-collections:
+collections:  
+  posts:
+      output: true 
   pages:
     output: true
     permalink: /:collection/:path/
-
-  posts:
-    output: true
-    permalink: /:collection/:path
-
+    
 destination:      ./_site
 incremental:      false
 regenerate:       true
