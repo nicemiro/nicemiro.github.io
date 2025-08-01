@@ -44,7 +44,8 @@ exclude:
 
 collections:  
   posts:
-      output: true 
+    output: true 
+    permalink: /:collection/:path/
   pages:
     output: true
     permalink: /:collection/:path/
