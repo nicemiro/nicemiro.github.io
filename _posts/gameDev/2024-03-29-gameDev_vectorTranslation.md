@@ -11,7 +11,7 @@ published: true
 <br>
 화면상에 두 비행체가 각각 두 지점을 향해 같은 탄환을 발사하는 상황을 생각해보자.  
 
-<div class="screenShots" align="left">
+<div class="screenShots" style="text-align: left;">
 <img src="/img/gameDev/2024-03-29-gameDev_rotationOfVector00.png" style="width:50%;height:50%">
 </div>
 <br>
@@ -28,7 +28,7 @@ vy2 = (D.y - C.y) / 4
 두 탄환은 화면상의 좌표를 각각 4번씩 찍어주며 이동하기 때문에 거리에 상관없이 도착 시간이 같다.  
 시작점과 끝점 사이의 거리가 멀어질수록 탄환의 속도가 빨리지고 가까울수록 속도가 느려지고 있는 것이다.  
 
-<div class="screenShots" align="left">
+<div class="screenShots" style="text-align: left;">
 <img src="/img/gameDev/2024-03-29-gameDev_rotationOfVector02.png" style="width:50%;height:50%">
 </div>
 <br>
@@ -39,7 +39,7 @@ vy2 = (D.y - C.y) / 4
 각각 현재 좌표에서 거리가 5, 10 인 지점으로 두 탄환을 발사한다면 1 프레임당 각각의 이동거리는 다음과 같다.  
 <br>
 
-<div class="ex" align="center">
+<div class="ex" style="text-align: center;">
 0.08333 = 5 / (1/60)<br>
 0.16666 = 10 / (1/60)
 </div>
@@ -51,12 +51,12 @@ vy2 = (D.y - C.y) / 4
 
 화면상에서 탄환의 시작점 A와 도착지점 B의 좌표를 정했다면  
 피타고라스의 정리로 두 좌표지점의 x,y 값을 이용해 탄환의 총 이동거리인 r을 구할 수 있다.  
-<div class="screenShots" align="left">
+<div class="screenShots" style="text-align: left;">
 <img src="/img/gameDev/2024-03-29-gameDev_rotationOfVector01.png" style="width:50%;height:50%">
 </div>
 <br>
 
-<div class="ex" align="center">
+<div class="ex" style="text-align: center;">
 rr  = 4 X 4 + 3 X 3  <br>
 r = 5
 </div>
@@ -64,7 +64,7 @@ r = 5
 
 A와 B사이의 탄환 이동거리인 r이 5 이므로 1프레임당 움직이는 x, y 의 거리는  
 
-<div class="ex" align="center">
+<div class="ex" style="text-align: center;">
 x : (B.x - A.x) / 5  <br>
 y : (B.y - A.y) / 5  <br>
 (4 / 5 , 3 / 5)  <br>
@@ -74,7 +74,7 @@ y : (B.y - A.y) / 5  <br>
 
 같은 방법으로 삼각형의 윗변 r이 10인, 좌표 (8,6)만큼 이동하는 탄환의 속도는   
 
-<div class="ex" align="center">
+<div class="ex" style="text-align: center;">
 (8 / 10 , 6 / 10)  <br>
 => (0.8, 0.6)
 </div>
