@@ -46,5 +46,21 @@ layout: home
 <hr>
 <br>
 
-#### LATEST POSTS
-[* GameDev / The Blocks](/posts/gameDev/2025-07-25-gameDev_blocks)
+#### UPDATES
+
+<section>
+
+
+  {% for post in site.posts %}
+    {% unless post.category contains "Thought" %}
+      <li>
+        <a href="{{ post.url | relative_url }}">
+          {{ post.title }}
+        </a>
+        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+      </li>
+    {% endunless %}
+  {% endfor %}
+
+
+</section>
