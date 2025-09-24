@@ -209,3 +209,4 @@ F<sub>p</sub> = {1, 2, 3...p-1} 유한체 소수p와 서로소관계인 n 사이
 <div class="formula_01" style="text-align: center; font-size: medium; margin-top: 20px;">
   <b >n<sup>(p - 2)</sup> = n<sup>-1</sup> &nbsp; (mod p)</b>
 </div>
+<br>
