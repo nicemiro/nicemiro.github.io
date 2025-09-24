@@ -62,7 +62,7 @@ for k in [1, 3, 7, 13, 18]: # 소수 19의 유한체
 </div>
 <br>
 
-#### 페르마의 소정리 증명
+#### 증명
 <p>이제 유한체 F<sub>19</sub> 에 페르마의 소정리식을 적용해 확인해보자.</p>  
 
 ```python
@@ -75,12 +75,11 @@ for i in [7, 11, 17, 31]: # 소수 p의 집합
 # [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 # [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ```
-<div class="formula_01" style="text-align: left; font-size: small; margin-top: 20px;">
-  <b >n<sup>(p-1)</sup> % p = 1 </b>
+<div class="formula_01" style="text-align: left; font-size: medium; margin-top: 20px;">
+  <p><b >n<sup>(p-1)</sup> % p = 1 </b> &nbsp;  이용해서 정리하면 </p>
 </div>
 
 <div class="formula_01" style="text-align: left; font-size: medium; margin-top: 20px;">
-  <p>각각의 식을 정리하면 </p>
     <ul>
       <li><p>F<sub>7</sub> 에서 0과 7자신을 제외하고 n = 1~6 까지 <b>n<sup>(7-1)</sup> % 7 = 1 </b> (모든 결과가 1)</p></li>
       <li><p>F<sub>11</sub>&nbsp; n=1~10 &nbsp;&nbsp; n<sup>(11-1)</sup> % 11 = 1 </p></li>
@@ -93,6 +92,7 @@ for i in [7, 11, 17, 31]: # 소수 p의 집합
 <div class="formula_01" style="text-align: center; font-size: medium; margin-top: 20px;">
 <b> n<sup>p−1</sup> ≡ 1 (mod p) </b>
 </div>
+<br>
 모든 결과값은 1이된다.   
 0은 어떤 수를 곱해도 1이 나오지 않기 때문에(역원이 없다) 제외하고 p가 소수이기 때문에 0을 제외한 유한체의 원소 {1, 2, 3, ...p-1} 가 모두 곱셈 역원을 가지는 유한체 구조가 성립한다. (당연히 p mod p는 0 이기 때문에 p자신또한 제외된다)  
 <ul>
@@ -121,14 +121,14 @@ for i in [7, 11, 17, 31]: # 소수 p의 집합
 </div>
 <br>
 
-#### 페르마의 소정리를 이용한 나눗셈의 연산
+#### 나눗셈 연산에 응용하기
 
 나눗셈은 곱셈의 역연산으로 아래와 같이 치환할 수 있다.  
 <div class="formula_01" style="text-align: center; font-size: medium; margin-top: 20px;">  
 <p>a / b = a · (1 / b) = a · b<sup>-1</sup></p>
 </div>
 
-페르마의 소정리에 따르면 
+공식을 이용하면
 <div class="formula_01" style="text-align: center; font-size: medium; margin-top: 20px;">  
 <p>b<sup>(p - 1)</sup> = 1</p>
 </div>
@@ -167,7 +167,7 @@ for i in [7, 11, 17, 31]: # 소수 p의 집합
 
 모듈러연산에서 곱셈의 역원을 구하는 위의 방법을 사용하면 <b style="color : #be0000;">음의 지수를 양의 지수로 바꿀 수 있다.<b>
 
-페르마의 소정리를 이용해 나눗셈을 곱셈연산으로 치환해보자.
+아래 예시의 나눗셈을 곱셈연산으로 치환해보자.
 <div class="formula_01" style="text-align: left; font-size: medium; margin-top: 20px;">
 ex) F<sub>31</sub><br>
   <ul>
@@ -200,4 +200,12 @@ ex) F<sub>31</sub><br>
 </div>
 <br>
 
+#### 정리
+F<sub>p</sub> = {1, 2, 3...p-1} 유한체 소수p와 서로소관계인 n 사이에 다음의 관계가 성립한다.
+<div class="formula_01" style="text-align: center; font-size: medium; margin-top: 20px;">
+  <b >n<sup>(p-1)</sup> = 1  &nbsp; (mod p)</b>
+</div>
 
+<div class="formula_01" style="text-align: center; font-size: medium; margin-top: 20px;">
+  <b >n<sup>(p - 2)</sup> = n<sup>-1</sup> &nbsp; (mod p)</b>
+</div>
