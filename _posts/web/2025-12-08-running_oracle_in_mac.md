@@ -131,7 +131,7 @@ local     oradata
 % docker exec -it oracle bash
 
 컨테이너접속
-bash-4.4% sql plus sys/password as sysdba
+bash-4.4% sqlplus sys/password as sysdba
 ```
 <br>
 
