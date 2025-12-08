@@ -5,7 +5,7 @@ author: BabyK
 date: 2025-12-08
 category: Web
 layout: post
-tags: [Web, Docker. Oracle]
+tags: [Web, Docker, Oracle]
 published: true
 ---
 
