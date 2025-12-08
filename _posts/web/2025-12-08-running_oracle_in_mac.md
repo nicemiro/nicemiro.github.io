@@ -200,7 +200,7 @@ DB커넥션이 만들어지고 정상 작동 하는것을 볼 수 있다.
 예를 들어 오라클이 test.dbf 파일을 생성했다고 가정하면 컨테이너 내부에서 Oracle이 만든 경로는  
 /opt/oracle/oradata/ORCL/test.dbf  
   
-그러니 실제 물리적 파일은 아래의 로컬위치에 생성된다.  
+그러나 실제 물리적 파일은 아래의 로컬위치에 생성된다.  
 /var/lib/docker/volumes/oradata/_data/ORCL/test.dbf  
   
 컨테이너 내부의 Destination 파일은 실제로 생성되는 것이 아니라 도커에 의해 실제 로컬의 물리위치인 Source에 연결되어 있는것 뿐이다.  
