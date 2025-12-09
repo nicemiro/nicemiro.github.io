@@ -9,7 +9,7 @@ tags: [Web, Docker, Oracle]
 published: true
 ---
 
-오라클은 맥을 지원하지 않지만 도커 컨테이너를 사용해 실행가능하다.  
+오라클은 맥을 지원하지 않지만 도커 컨테이너를 사용해 실행할 수 있다.  
 
 ```text
 공식 오라클 도커이미지 OCR 주소
@@ -18,7 +18,7 @@ container-registry.oracle.com/database/enterprise
 container-registry.oracle.com/database/standard
 ```
 <br>
-상용버전이아닌 테스트나 개인프로젝트 용도로는 Free 버젼을 사용해야한다.
+상용버전이아닌 테스트나 개인프로젝트 용도로는 Free 버젼을 사용해야 한다.
 
 ```text
 % docker pull container-registry.oracle.com/database/free:latest
