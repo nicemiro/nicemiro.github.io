@@ -324,10 +324,28 @@ Alpine 컨테이너 볼륨을 통해 리눅스VM 호스트에 위치한 ora_sql_
 ora_sql_test.dbf  sysaux01.dbf      system01.dbf      temp01.dbf        undotbs01.dbf
 /vol/oradata/_data/FREE/mypdb #
 ```
-<br>
 
 운영 서버가 아닌 개인작업시 작업이 끝나면 오라클 컨테이너를 종료해 데이터 유실을 방지한다.  
 `% docker stop oracle`
+
+<br>
+
+MYPDB_ADMIN 계정도 SQL Developer 커넥션을 추가해주자.
+<div class="row" style="display: flex; align-items: center;">
+      <img src="/img/2025-12-08-running_oracle_in_mac03.png" style="width: 90%; height: auto;">
+</div>
+<br>
+
+Service Name 은 오라클을 로컬에서 설치할때 흔히 설정하던 SID 값 (인스턴스의 고유명) 을 말한다.  
+`CREATE DATABASE ORCLCDB ...` 로 새로운 데이터베이스 생성시 ORCLCDB ,
+PDB 생성 명령어인 `CREATE PLUGGABLE DATABASE mypdb` 의 mypdb 가 해당된다.   
+로컬에서 수행하는 테스트가 아닌 상용시스템이나 원격 연결, 도커 사용시에는 Service name 사용이 권장된다.  
+도커로 다운받은 FREE 버젼의 CDB 인스턴스명은 기본적으로 FREE 로 설정 되어있다.  
+
+터미널 로그인 예시  
+`sqlplus sys/password@localhost:1521/FREE as sysdba`     
+`sqlplus mypdb_admin/1234@localhost:1521/mypdb`  
+
 
 <br>
 
