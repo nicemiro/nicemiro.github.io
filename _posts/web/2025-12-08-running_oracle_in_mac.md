@@ -165,7 +165,7 @@ DB 커넥션이 만들어지고 정상 작동하는 것을 볼 수 있다.
 <br>
 
 ### 오라클 PDB 설정
-설치된 오라클의 버전은 12C 이상인 멀티테넌트 방식이므로 CDB 컨테이너 안에 별도의 PDB를 생성해서 사용한다.  
+설치된 오라클의 버전은 12C 이상인 멀티테넌트 방식이므로 CDB 컨테이너 안에 PDB를 생성해서 사용한다.  
 
 ```sql
 -- PDB 생성
@@ -174,8 +174,11 @@ DB 커넥션이 만들어지고 정상 작동하는 것을 볼 수 있다.
 -- destination : 템플릿 파일을 사용해 생성되는 PDB 데이터파일들이 저장되는 위치
 
 CREATE PLUGGABLE DATABASE mypdb
-  ADMIN USER ORA_SQL_TEST IDENTIFIED BY "1qaz2wsx"
+  ADMIN USER mypdb_admin IDENTIFIED BY "1234"
   FILE_NAME_CONVERT = ('/opt/oracle/oradata/FREE/pdbseed', '/opt/oracle/oradata/FREE/mypdb');
+
+-- 생성된 PDB ADMIN 유저가 조회된다.
+select username from dba_users where username like 'MYPDB_ADMIN';
 
 -- CDB 에 존재하는 PDB 조회. MYPDB가 MOUNTED 상태임을 확인
 SELECT name, con_id, open_mode FROM v$pdbs; 
@@ -187,52 +190,49 @@ ALTER PLUGGABLE DATABASE mypdb OPEN;
 -- CDB 기동시 PDB는 자동으로 열리지 않기 때문에 OPEN 상태로 유지한다
 ALTER PLUGGABLE DATABASE mypdb SAVE STATE;
 
--- PDB -> CDB 세션전환
-ALTER SESSION SET CONTAINER = mypdb;
+-- MYPDB_ADMIN 에게 테이블스페이스 생성권한 부여
+GRANT CREATE TABLESPACE TO MYPDB_ADMIN;
+GRANT UNLIMITED TABLESPACE TO MYPDB_ADMIN;  -- 테이블스페이스 용량제한 해제
 
--- CDB -> PDB 세션전환
-ALTER SESSION SET CONTAINER = CDB$ROOT
+-- PDB -> CDB 컨테이너 전환
+-- ALTER SESSION SET CONTAINER = mypdb;
+
+-- CDB -> PDB
+-- ALTER SESSION SET CONTAINER = CDB$ROOT
 ```
 
+<br>
+터미널에서 컨테이너로 접속해 생성한 MYPDB_ADMIN 계정으로 로그인해 보자.
 
-```sql
--- 현재 컨테이너 확인  
-SHOW con_name;
+```text
+% docker exec -it oracle bash
+ash-4.4$ sqlplus mypdb_admin/1234@localhost:1521/mypdb;
 
--- 결과
+SQL*Plus: Release 23.26.0.0.0 - Production on Wed Dec 10 04:59:26 2025
+Version 23.26.0.0.0
+
+Copyright (c) 1982, 2025, Oracle.  All rights reserved.
+
+Last Successful login time: Wed Dec 10 2025 04:57:33 +00:00
+
+Connected to:
+Oracle AI Database 26ai Free Release 23.26.0.0.0 - Develop, Learn, and Run for Free
+Version 23.26.0.0.0
+
+SQL> show user;
+USER is "MYPDB_ADMIN"
+
+SQL> SHOW con_name;
+
 CON_NAME
 ------------------------------------
 MYPDB
 ```
 
 <br>
-터미널에서 컨테이너로 접속해 PDB으로 로그인해 보자
 
+MYPDB_ADMIN 유저로 고정길이의 테이블 스페이스를 추가해보자.
 ```text
-% docker exec -it oracle bash
-bash-4.4$ sqlplus ORA_SQL_TEST/1qaz2wsx@//localhost:1521/mypdb
-
-SQL*Plus: Release 23.26.0.0.0 - Production on Wed Dec 10 02:25:07 2025
-Version 23.26.0.0.0
-
-Copyright (c) 1982, 2025, Oracle.  All rights reserved.
-
-Connected to:
-Oracle AI Database 26ai Free Release 23.26.0.0.0 - Develop, Learn, and Run for Free
-Version 23.26.0.0.0
-
-SQL> SHOW con_name;
-
-CON_NAME
-------------------------------
-MYPDB
-```
-
-<br>
-
-ora_sql_test 유저로 고정길이의 테이블 스페이스를 추가해보자.
-```text
-
 SQL>
 CREATE TABLESPACE ORA_SQL_TEST_TS DATAFILE '/opt/oracle/oradata/FREE/mypdb/ora_sql_test.dbf' SIZE 10G
 EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
@@ -240,10 +240,34 @@ EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
 -- 생성한 테이블 스페이스 삭제
 -- DROP TABLESPACE ORA_SQL_TEST_TS INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
 ```
+
+MYPDB_ADMIN 자신의 디폴트 테이블 스페이스는 SYSTEM으로 조회된다.
+```text
+SQL> select username, default_tablespace from user_users;
+
+USERNAME
+--------------------------------------------------------------------------------
+DEFAULT_TABLESPACE
+------------------------------
+MYPDB_ADMIN
+SYSTEM
+
+```
+
+CDB 관리자인 SYS로 접속하여 MYPDB_ADMIN의 기본테이블 스페이스를 변경해준다.
+```sql
+SQL> ALTER USER MYPDB_ADMIN DEFAULT TABLESPACE ORA_SQL_TEST_TS;
+
+User MYPDB_ADMIN altered.
+
+SQL>
+SELECT username, default_tablespace FROM dba_users where username like 'MYPDB_ADMIN' ORDER BY username;
+```
 <br>
 
-ora_sql_test.dbf 파일을 확인할 수 있다.
+오라클 컨테이너에서 ora_sql_test.dbf 파일을 확인해보자.
 ```text
+% docker exec -it oracle bash
 bash-4.4$ cd /opt/oracle/oradata/FREE/mypdb
 bash-4.4$ pwd
 /opt/oracle/oradata/FREE/mypdb
@@ -286,7 +310,7 @@ ora_sql_test.dbf  sysaux01.dbf	system01.dbf  temp01.dbf  undotbs01.dbf
 * 따라서 볼륨 마운트된 VM Source 경로를 확인하려면 Alpine 컨테이너와 연결해서 간접 확인만 가능함 (볼륨 방식이 아닌 바인드 마운트 방식은 맥 호스트에서도 리눅스 환경과 동일하게 작동함)
 
 <span style="color:red"><b>이래서 개발자는 리눅스를 써야한다</b></span>  
-유닉스에 대한 로망때문에 맥을 사용중이지만 iOS 개발만 아니었다면 진작 리눅스머신을 꾸렸을 듯.  
+유닉스에 대한 로망 때문에 맥을 사용중이지만 iOS 개발만 아니었다면 진작 리눅스머신을 꾸렸것 같다.  
 특히 램에 인색한 맥을 사용하면서 가상화로 인해 탁하게 변해가는 메모리압박 그래프와 스왑용량을 보는것은 기분이 썩 좋지않은 경험이다...  
 
 컨테이너 내부의 Destination 경로에 있는 ora_sql_test.dbf 파일을 확인했으니 이번에는 호스트의 Source 경로에서 해당 파일을 확인해보자.  
