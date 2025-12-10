@@ -281,10 +281,9 @@ ora_sql_test.dbf  sysaux01.dbf	system01.dbf  temp01.dbf  undotbs01.dbf
 이 파일들은 컨테이너 내부의 오라클에 의해 관리되고 있으니 직접 조작할 수 없고 DB 명령어를 통해서만 수정되어야 한다.  
 
 여기서 알아둬야 할 점    
-* 맥에서 구동되는 Docker는 내부적으로 리눅스 VM 위에서 실행되므로, VM 내부 Source 경로(/var/lib/docker/volumes/...)는 macOS에서 직접 탐색불가  
+* 맥에서 구동되는 Docker는 내부적으로 리눅스 VM 위에서 실행되므로, VM 내부 Source 경로(/var/lib/docker/volumes/...)는 macOS에서 직접 탐색불가 (경량화된 VM이므로 완전한 독립 VM과는 다름)
 * Linux 네이티브 환경에서는 Source 경로가 호스트 파일 시스템에 실제로 존재함  
-* 맥에서는 Docker VM에 접속하더라도 Source 위치를 직접 탐색할 수 없고, 경량화된 VM이므로 완전한 독립 VM과는 다름  
-* 따라서 볼륨 마운트된 VM Source 경로를 확인하려면 Alpine 같은 컨테이너를 통해 간접 확인만 가능. 단, 호스트 경로와 바인드 마운트를 사용하면 호스트에서도 직접 확인 가능함  
+* 따라서 볼륨 마운트된 VM Source 경로를 확인하려면 Alpine 컨테이너와 연결해서 간접 확인만 가능함 (볼륨 방식이 아닌 바인드 마운트 방식은 맥 호스트에서도 리눅스 환경과 동일하게 작동함)
 
 <span style="color:red"><b>이래서 개발자는 리눅스를 써야한다</b></span>  
 유닉스에 대한 로망때문에 맥을 사용중이지만 iOS 개발만 아니었다면 진작 리눅스머신을 꾸렸을 듯.  
