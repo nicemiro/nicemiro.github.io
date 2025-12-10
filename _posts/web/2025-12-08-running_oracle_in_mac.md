@@ -31,7 +31,7 @@ container-registry.oracle.com/database/free   latest    ef56a6ad07e8   5 weeks a
 <br>
 
 ### 도커 볼륨생성
-작업내용이 컨테이너 내부에 저장되면 작업파일의 유실위험이 크고 딜레이와 충돌위험도 증가하기 때문에 도커 스토리지 세팅을 변경해 생성파일 위치를 컨테이너 내부가 아닌 로컬로 분리해줘야 한다.  
+작업내용이 컨테이너 내부에 저장되면 유실위험이 크고 딜레이와 충돌위험도 증가하기 때문에 도커 스토리지 세팅을 변경해 생성파일 위치를 컨테이너 내부가 아닌 로컬로 분리해줘야 한다. (후술 하겠지만 맥에서 이 로컬은 도커VM 이 된다)
   
 DB운영용도로는 [볼륨 마운트][1]{:target="_blank"}를 사용해야하고 일반적인 개발용도로는 로컬의 개발소스를 컨테이너에서 빌드하고 실행 할 수 있는 바인드 마운트를 사용한다.  
 컨테이너와 작업물들을 분리한다는 개념은 같지만 관리주체, 경로, 권한제어 방식의 차이로 생각하면 된다.  
@@ -92,16 +92,14 @@ local     oradata
 ### 도커 컨테이너 생성
 * --name : 컨테이너이름 
 * -e ORACLE_PWD : 오라클 패스워드
-* -e INIT_SGA/PGA : 초기 글로벌 공간 용량
 * -p : 1521: 리스너포트, 5500: Em Express 포트 (웹용 관리자 인터페이스)
-* -v : 로컬 볼륨 저장주소
+* -v : 컨테이너 내부에서 오라클이 데이터를 저장하는 주소( destination 경로. 후술함)
+* -d : detached 모드로 실행 : 터미널을 차지하지 않고 백그라운드 실행
 
 ```text
 % docker run --name oracle \
     -p 1521:1521 -p 5500:5500 \
     -e ORACLE_PWD=password \
-    -e INIT_SGA_SIZE=3000 \
-    -e INIT_PGA_SIZE=1000 \
     -v oradata:/opt/oracle/oradata \
     -d container-registry.oracle.com/database/free:latest
 ```
@@ -149,8 +147,7 @@ USER
 SYS
 ```
 <br>
-오라클은 오래전에 맥을 포기했지만 SQL Developer 툴은 제공하고 있는데 혹시 라고 생각했다면 맞다.  
-자바인것이다. 알뜰한 사람들 같으니.  
+오라클은 오래전에 맥을 포기했지만 SQL Developer 툴은 제공하고 있는데 혹시 라고 생각했다면 맞다 자바인것이다.  
 VSCode용 플러그인도 있으니 VSCode의 Extensions 탭에서 검색 후 설치하고 설치 후 나타나는 SQL Developer 탭을 클릭, Containers 항목에서 컨테이너를 추가한 뒤 컨테이너 생성시 입력했던 정보들을 기입해준다.
 
 <div class="row" style="display: flex; align-items: center;">
@@ -313,6 +310,7 @@ ora_sql_test.dbf  sysaux01.dbf	system01.dbf  temp01.dbf  undotbs01.dbf
 유닉스에 대한 로망 때문에 맥을 사용중이지만 iOS 개발만 아니었다면 진작 리눅스머신을 꾸렸을 것 같다.  
 특히 램에 인색한 맥을 사용하면서 가상화로 인해 탁하게 변해가는 메모리압박 그래프와 스왑용량을 보는것은 기분이 썩 좋지않은 경험이다...  
 
+데이터전용 컨테이너를 만들어서 오라클에서 생성되는 데이터를 별도의 컨테이너로 관리하는 멀티 컨테이너 구조를 사용할 수도 있을 듯 하지만 개인 프로젝트 용도로는 이정도면 충분하다.  아니면 도커 볼륨 (리눅스 VM) 에 생성되는 데이터를 정기적으로 맥으로 백업해 보관하는 방식도 생각해 볼 수 있고 이러한 경우 맥에서 파일을 읽기 전용으로 설정해둘 필요가 있을 것이다.  
 컨테이너 내부의 Destination 경로에 있는 ora_sql_test.dbf 파일을 확인했으니 이번에는 호스트의 Source 경로에서 해당 파일을 확인해보자.  
 Alpine 컨테이너 볼륨을 통해 리눅스VM 호스트에 위치한 ora_sql_test.dbf 파일을 확인할 수 있다. 
 ```text
