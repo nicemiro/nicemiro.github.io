@@ -9,16 +9,16 @@ tags: [Web, Docker, Oracle]
 published: true
 ---
 
+### 도커 설정
 오라클은 맥을 지원하지 않지만 도커 컨테이너를 사용해 실행할 수 있다.  
 
-```text
 공식 오라클 도커이미지 OCR 주소
-container-registry.oracle.com/database/free
-container-registry.oracle.com/database/enterprise
-container-registry.oracle.com/database/standard
-```
+* container-registry.oracle.com/database/free
+* container-registry.oracle.com/database/enterprise
+* container-registry.oracle.com/database/standard
+
 <br>
-상용버전이아닌 테스트나 개인프로젝트 용도로는 Free 버젼을 사용해야 한다.
+상용버전이 아닌 테스트나 개인프로젝트 용도이므로 Free 버젼을 사용해야 한다.
 
 ```text
 % docker pull container-registry.oracle.com/database/free:latest
@@ -29,12 +29,14 @@ container-registry.oracle.com/database/free   latest    ef56a6ad07e8   5 weeks a
 ```
 
 <br>
-다운받은 그대로 컨테이너를 실행해 사용하면 작업내용이 컨테이너 내부에 저장되어 컨테이너와 함께 유실될 위험이 크고  
-속도문제와 충돌위험도 증가하기 때문에 도커 스토리지 세팅을 변경해 생성파일 위치를 컨테이너 내부가 아닌 로컬로 분리해줘야 한다.  
-DB의 경우 [볼륨 마운트][1]{:target="_blank"}를 사용하고 개발자가 로컬의 개발소스를 컨테이너에서 빌드하고 실행 하는 용도로는 바인드 마운트를 사용한다.
-컨테이너와 작업물들을 분리한다는 개념은 같지만 관리주체(컨테이너냐 OS냐), 경로, 권한제어 방식의 차이로 생각하는 것이 좋다.  
-* 볼륨 : 도커가 추상화한 '독립영역'
-* 바인드 :  호스트와 직접 연결된 '실제 디렉토리'  
+
+### 도커 볼륨생성
+작업내용이 컨테이너 내부에 저장되면 작업파일의 유실위험이 크고 딜레이와 충돌위험도 증가하기 때문에 도커 스토리지 세팅을 변경해 생성파일 위치를 컨테이너 내부가 아닌 로컬로 분리해줘야 한다.  
+  
+DB운영용도로는 [볼륨 마운트][1]{:target="_blank"}를 사용해야하고 일반적인 개발용도로는 로컬의 개발소스를 컨테이너에서 빌드하고 실행 할 수 있는 바인드 마운트를 사용한다.  
+컨테이너와 작업물들을 분리한다는 개념은 같지만 관리주체, 경로, 권한제어 방식의 차이로 생각하면 된다.  
+* Volume Mount  : 도커가 추상화한 '독립영역' (컨테이너가 관리)
+* Bind Mount    :  호스트와 직접 연결된 '실제 디렉토리' (호스트가 관리)
 <table style="font-size: 14px;">
     <tr>
         <th></th>    
@@ -78,12 +80,23 @@ DB의 경우 [볼륨 마운트][1]{:target="_blank"}를 사용하고 개발자�
     </tr>
 </table>
 
-<br>
-볼륨 생성
-
 ```text
 % docker volume create oradata
 
+% docker volume ls
+DRIVER    VOLUME NAME
+local     oradata
+```
+<br>
+
+### 도커 컨테이너 생성
+* --name : 컨테이너이름 
+* -e ORACLE_PWD : 오라클 패스워드
+* -e INIT_SGA/PGA : 초기 글로벌 공간 용량
+* -p : 1521: 리스너포트, 5500: Em Express 포트 (웹용 관리자 인터페이스)
+* -v : 로컬 볼륨 저장주소
+
+```text
 % docker run --name oracle \
     -p 1521:1521 -p 5500:5500 \
     -e ORACLE_PWD=password \
@@ -91,21 +104,9 @@ DB의 경우 [볼륨 마운트][1]{:target="_blank"}를 사용하고 개발자�
     -e INIT_PGA_SIZE=1000 \
     -v oradata:/opt/oracle/oradata \
     -d container-registry.oracle.com/database/free:latest
-
---name : 컨테이너이름 
--e ORACLE_PWD : 오라클 패스워드
--e INIT_SGA/PGA : 초기 글로벌 공간 용량
--p : 1521: 리스너포트, 
-     5500: Em Express 포트 (웹용 관리자 인터페이스)
--v : 로컬 볼륨 저장주소
-
-% docker volume ls
-DRIVER    VOLUME NAME
-local     oradata
 ```
 
-<br>
-마운트 방식을 확인
+마운트 방식을 확인해보자
 
 ```text
 % docker ps
@@ -124,19 +125,13 @@ local     oradata
               "Source": "/var/lib/docker/volumes/oradata/_data",
               "Destination": "/opt/oracle/oradata",
 ```
-<Br>
 
-컨테이너 ID로 접속해 SYS계정 로그인 확인
+도커 컨테이너로 접속해 SYS계정으로 로그인해보자
 ```text
 % docker exec -it oracle bash
 
-컨테이너접속
 bash-4.4% sqlplus sys/password as sysdba
-```
-<br>
 
-로그인 성공
-```text
 SQL*Plus: Release 23.26.0.0.0 - Production on Mon Dec 8 10:20:51 2025
 Version 23.26.0.0.0
 
@@ -156,27 +151,105 @@ SYS
 <br>
 오라클은 오래전에 맥을 포기했지만 SQL Developer 툴은 제공하고 있는데 혹시 라고 생각했다면 맞다.  
 자바인것이다. 알뜰한 사람들 같으니.  
-VSCode용 플러그인을 사용하는 것이 더 편리하니 VSCode의 Extensions 탭에서 검색 후 설치하고  
-설치 후 나타나는 SQL Developer 탭을 클릭, Containers 항목에서 컨테이너를 추가, CLI에서 컨테이너 생성시 입력한  
-컨테이너명(oracle) 과 패스워드(password)를 입력한다.  
+VSCode용 플러그인도 있으니 VSCode의 Extensions 탭에서 검색 후 설치하고 설치 후 나타나는 SQL Developer 탭을 클릭, Containers 항목에서 컨테이너를 추가한 뒤 컨테이너 생성시 입력했던 정보들을 기입해준다.
 
 <div class="row" style="display: flex; align-items: center;">
       <img src="/img/2025-12-08-running_oracle_in_mac01.png" style="width: 90%; height: auto;">
 </div>
 <br>
 
-DB커넥션이 만들어지고 정상 작동 하는것을 볼 수 있다.
+DB 커넥션이 만들어지고 정상 작동하는 것을 볼 수 있다.
 <div class="row" style="display: flex; align-items: center;">
       <img src="/img/2025-12-08-running_oracle_in_mac02.png" style="width: 90%; height: auto;">
 </div>
 <br>
 
-테이블 스페이스를 생성하고 볼륨 위치에 생성된 파일을 확인해보자.  
-<div class="row" style="display: flex; align-items: center;">
-      <img src="/img/2025-12-08-running_oracle_in_mac03.png" style="width: 90%; height: auto;">
-</div>
+### 오라클 PDB 설정
+설치된 오라클의 버전은 12C 이상인 멀티테넌트 방식이므로 CDB 컨테이너 안에 별도의 PDB를 생성해서 사용한다.  
+
+```sql
+-- PDB 생성
+-- FILE_NAME_CONVERT = (pdbseed , destination)
+-- pdbseed : PDB의 템플릿파일(.dbf)
+-- destination : 템플릿 파일을 사용해 생성되는 PDB 데이터파일들이 저장되는 위치
+
+CREATE PLUGGABLE DATABASE mypdb
+  ADMIN USER ORA_SQL_TEST IDENTIFIED BY "1qaz2wsx"
+  FILE_NAME_CONVERT = ('/opt/oracle/oradata/FREE/pdbseed', '/opt/oracle/oradata/FREE/mypdb');
+
+-- CDB 에 존재하는 PDB 조회. MYPDB가 MOUNTED 상태임을 확인
+SELECT name, con_id, open_mode FROM v$pdbs; 
+
+-- PDB OPEN_MODE를 OPEN 으로 전환해야 접속할 수 있다
+ALTER PLUGGABLE DATABASE mypdb OPEN;
+-- ALTER PLUGGABLE DATABASE ALL OPEN; -- CDB 전체의 모든 PDB를 OPEN 할때는
+
+-- CDB 기동시 PDB는 자동으로 열리지 않기 때문에 OPEN 상태로 유지한다
+ALTER PLUGGABLE DATABASE mypdb SAVE STATE;
+
+-- PDB -> CDB 세션전환
+ALTER SESSION SET CONTAINER = mypdb;
+
+-- CDB -> PDB 세션전환
+ALTER SESSION SET CONTAINER = CDB$ROOT
+```
+
+
+```sql
+-- 현재 컨테이너 확인  
+SHOW con_name;
+
+-- 결과
+CON_NAME
+------------------------------------
+MYPDB
+```
 
 <br>
+터미널에서 컨테이너로 접속해 PDB으로 로그인해 보자
+
+```text
+% docker exec -it oracle bash
+bash-4.4$ sqlplus ORA_SQL_TEST/1qaz2wsx@//localhost:1521/mypdb
+
+SQL*Plus: Release 23.26.0.0.0 - Production on Wed Dec 10 02:25:07 2025
+Version 23.26.0.0.0
+
+Copyright (c) 1982, 2025, Oracle.  All rights reserved.
+
+Connected to:
+Oracle AI Database 26ai Free Release 23.26.0.0.0 - Develop, Learn, and Run for Free
+Version 23.26.0.0.0
+
+SQL> SHOW con_name;
+
+CON_NAME
+------------------------------
+MYPDB
+```
+
+<br>
+
+ora_sql_test 유저로 고정길이의 테이블 스페이스를 추가해보자.
+```text
+
+SQL>
+CREATE TABLESPACE ORA_SQL_TEST_TS DATAFILE '/opt/oracle/oradata/FREE/mypdb/ora_sql_test.dbf' SIZE 10G
+EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
+
+-- 생성한 테이블 스페이스 삭제
+-- DROP TABLESPACE ORA_SQL_TEST_TS INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;
+```
+<br>
+
+ora_sql_test.dbf 파일을 확인할 수 있다.
+```text
+bash-4.4$ cd /opt/oracle/oradata/FREE/mypdb
+bash-4.4$ pwd
+/opt/oracle/oradata/FREE/mypdb
+bash-4.4$ ls
+ora_sql_test.dbf  sysaux01.dbf	system01.dbf  temp01.dbf  undotbs01.dbf
+```
 
 ```text
 % docker inspect oracle | grep Mounts -n5
@@ -194,35 +267,46 @@ DB커넥션이 만들어지고 정상 작동 하는것을 볼 수 있다.
 ```
 <br>
 
-* Source (호스트 경로)):  Docker 가 사용하는 Linux 내부의 실제 디스크 경로   
+* Source (호스트 경로)):  Docker 가 사용하는 로컬호스트 내부의 실제 디스크 경로   
 * Destination (컨테이너 경로)): 생성한 오라클 컨테이너 내부에서 데이터파일, 제어파일, redo log 등이 저장되는 위치로 오라클 프로세스가 실제로 읽고 쓰는 경로   
 
-예를 들어 오라클이 test.dbf 파일을 생성했다고 가정하면 컨테이너 내부에서 Oracle이 만든 경로는  
-/opt/oracle/oradata/ORCL/test.dbf  
-  
-그러나 실제 물리적 파일은 아래의 로컬위치에 생성된다.  
-/var/lib/docker/volumes/oradata/_data/ORCL/test.dbf  
-  
-컨테이너 내부의 Destination 파일은 실제로 생성되는 것이 아니라 도커에 의해 실제 로컬의 물리위치인 Source에 연결되어 있는것 뿐이다.  
+예를 들어 컨테이너 내부에서 오라클이 test.dbf 파일을 생성했다고 가정하면 경로는  
+`Destination : /opt/oracle/oradata/FREE/test.dbf`   
 
-여기서 알아둬야 할 점은  
-* 맥에서 구동되는 도커의 경우 리눅스 VM위에서 실행되며 따라서 맥의 로컬에서 파일을 찾을 수는 없다.
-* 즉 Linux 네이티브로 돌아가는 도커라면 Source 위치에 실제 물리적 파일이 존재하겠지만  
-* 맥은 그 Linux VM에 접속해도 Source 위치에 존재하는 실제 물리적 파일의 확인은 불가능 (완전한 VM이 아님), Source 와 연결된 볼륨 데이터의 확인만 가능하다.  
-  
+그러나 실제 물리적 파일은 컨테이너 외부의 로컬위치에 생성된다.  
+`Source : /var/lib/docker/volumes/oradata/_data/FREE/test.dbf`
+
+<br>
+컨테이너 내부 Destination 경로에 위치한 파일들은 실제 로컬 source 경로의 파일과 연동되어 있다.  
+이 파일들은 컨테이너 내부의 오라클에 의해 관리되고 있으니 직접 조작할 수 없고 DB 명령어를 통해서만 수정되어야 한다.  
+
+여기서 알아둬야 할 점    
+* 맥에서 구동되는 Docker는 내부적으로 리눅스 VM 위에서 실행되므로, VM 내부 Source 경로(/var/lib/docker/volumes/...)는 macOS에서 직접 탐색불가  
+* Linux 네이티브 환경에서는 Source 경로가 호스트 파일 시스템에 실제로 존재함  
+* 맥에서는 Docker VM에 접속하더라도 Source 위치를 직접 탐색할 수 없고, 경량화된 VM이므로 완전한 독립 VM과는 다름  
+* 따라서 볼륨 마운트된 VM Source 경로를 확인하려면 Alpine 같은 컨테이너를 통해 간접 확인만 가능. 단, 호스트 경로와 바인드 마운트를 사용하면 호스트에서도 직접 확인 가능함  
+
 <span style="color:red"><b>이래서 개발자는 리눅스를 써야한다</b></span>  
 유닉스에 대한 로망때문에 맥을 사용중이지만 iOS 개발만 아니었다면 진작 리눅스머신을 꾸렸을 듯.  
 특히 램에 인색한 맥을 사용하면서 가상화로 인해 탁하게 변해가는 메모리압박 그래프와 스왑용량을 보는것은 기분이 썩 좋지않은 경험이다...  
 
-아무튼 볼륨을 들여다보면 ora_sql_test.dba 파일을 찾을 수 있다. 
+컨테이너 내부의 Destination 경로에 있는 ora_sql_test.dbf 파일을 확인했으니 이번에는 호스트의 Source 경로에서 해당 파일을 확인해보자.  
+Alpine 컨테이너 볼륨을 통해 리눅스VM 호스트에 위치한 ora_sql_test.dbf 파일을 확인할 수 있다. 
 ```text
+// -v <VM Source 경로>:<Alpine 컨테이너 경로>
+
 % docker run --rm -it -v /var/lib/docker/volumes:/vol alpine sh
-% cd vol/oradata/_data
-% ls
-FREE              dbconfig          ora_sql_test.dba
+/ # cd vol/oradata/_data/FREE/mypdb
+/vol/oradata/_data/FREE/mypdb # ls
+ora_sql_test.dbf  sysaux01.dbf      system01.dbf      temp01.dbf        undotbs01.dbf
+/vol/oradata/_data/FREE/mypdb #
 ```
 <br>
 
+운영 서버가 아닌 개인작업시 작업이 끝나면 오라클 컨테이너를 종료해 데이터 유실을 방지한다.  
+`% docker stop oracle`
+
 <br>
+
 
 [1]: https://docs.docker.com/engine/storage/volumes/
