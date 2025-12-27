@@ -92,7 +92,7 @@ int main() {
 % root@744a5b166823:/workspace# apt install -y gcc
 
 ...설치가 끝나면 컴파일한다. 바이너리 파일 생성. 실행.
-% root@744a5b166823:/workspace# gcc -o text text.c
+% root@744a5b166823:/workspace# gcc -o test test.c
 % root@744a5b166823:/workspace# ./test
 Current UID: 0
 Current GID: 0
