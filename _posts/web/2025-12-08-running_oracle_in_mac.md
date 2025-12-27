@@ -93,9 +93,12 @@ local     oradata
 * --name : 컨테이너이름 
 * -e ORACLE_PWD : 오라클 패스워드
 * -p : 1521: 리스너포트, 5500: Em Express 포트 (웹용 관리자 인터페이스)
-* -v : 컨테이너 내부에서 오라클이 데이터를 저장하는 주소( destination 경로. 후술함)
+* -v : 컨테이너 내부에서 오라클이 데이터를 저장하는 주소  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<로컬의 볼륨 마운트 이름 : 컨테이너주소>, `--volume` 플래그와 동일)    
 * -d : detached 모드로 실행 : 터미널을 차지하지 않고 백그라운드 실행
 
+-v 옵션 이후에 < 볼륨명 : 컨테이너경로> 로 지정하면 볼륨마운트,  
+<호스트의 로컬경로 : 컨테이너경로> 로 지정하면 해당 경로로 바인드 마운트가 된다. (파일로도 지정가능)
 ```text
 % docker run --name oracle \
     -p 1521:1521 -p 5500:5500 \
@@ -108,7 +111,8 @@ local     oradata
 
 ```text
 % docker ps
-... 컨테이너ID 확인 (oracle)
+... 실행중인 컨테이너ID 확인 (oracle)
+... ps -a 옵션의 경우 모든 컨테이너 출력
 
 % docker inspect oracle | grep Mounts -n5
       },
@@ -288,8 +292,9 @@ ora_sql_test.dbf  sysaux01.dbf	system01.dbf  temp01.dbf  undotbs01.dbf
 ```
 <br>
 
-* Source (호스트 경로)):  Docker 가 사용하는 로컬호스트 내부의 실제 디스크 경로   
-* Destination (컨테이너 경로)): 생성한 오라클 컨테이너 내부에서 데이터파일, 제어파일, redo log 등이 저장되는 위치로 오라클 프로세스가 실제로 읽고 쓰는 경로   
+* Type (마운트타입) : 볼륨 마운트  
+* Source (호스트 경로):  Docker 가 사용하는 로컬호스트 내부의 실제 디스크 경로   
+* Destination (컨테이너 경로): 생성한 오라클 컨테이너 내부에서 데이터파일, 제어파일, redo log 등이 저장되는 위치로 오라클 프로세스가 실제로 읽고 쓰는 경로   
 
 예를 들어 컨테이너 내부에서 오라클이 test.dbf 파일을 생성했다고 가정하면 경로는  
 `Destination : /opt/oracle/oradata/FREE/test.dbf`   
