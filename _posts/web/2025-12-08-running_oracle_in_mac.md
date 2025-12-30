@@ -193,12 +193,12 @@ ALTER PLUGGABLE DATABASE mypdb SAVE STATE;
 
 -- MYPDB_ADMIN 에게 권한 부여
 GRANT CREATE TABLESPACE TO MYPDB_ADMIN; -- 테이블스페이스 생성권한
-GRANT CREATE SESSION TO pdb_admin;
-GRANT CREATE USER TO pdb_admin;
-GRANT CREATE TABLESPACE TO pdb_admin;
-GRANT ALTER TABLESPACE TO pdb_admin;
-GRANT DROP TABLESPACE TO pdb_admin;
 GRANT UNLIMITED TABLESPACE TO MYPDB_ADMIN;  -- 테이블스페이스 용량제한 해제
+GRANT CREATE SESSION TO MYPDB_ADMIN;
+GRANT CREATE USER TO MYPDB_ADMIN;
+GRANT CREATE TABLESPACE TO MYPDB_ADMIN;
+GRANT ALTER TABLESPACE TO MYPDB_ADMIN;
+GRANT DROP TABLESPACE TO MYPDB_ADMIN;
 
 -- PDB -> CDB 컨테이너 전환
 -- ALTER SESSION SET CONTAINER = mypdb;
@@ -356,8 +356,8 @@ PDB 생성 명령어인 `CREATE PLUGGABLE DATABASE mypdb` 의 mypdb 가 해당�
 `sqlplus sys/password@localhost:1521/FREE as sysdba`     
 `sqlplus mypdb_admin/1234@localhost:1521/mypdb`  
 
-이제 생성된 pdb_admin 으로 접속, 사용할 업무용 유저를 생성, 업무용 유저로 테이블을 생성해서  
-오라클 11g 이전 버전처럼 동일하게 사용하면 된다.  pdb_admin 은 PDB 의 SYS 인셈.  
+이제 생성된 MYPDB_ADMIN 으로 접속, 사용할 업무용 유저를 생성, 업무용 유저로 테이블을 생성해서  
+오라클 11g 이전 버전처럼 동일하게 사용하면 된다.  MYPDB_ADMIN 은 PDB 의 SYS 인셈.  
 <br>
 
 
