@@ -178,9 +178,6 @@ CREATE PLUGGABLE DATABASE mypdb
   ADMIN USER mypdb_admin IDENTIFIED BY "1234"
   FILE_NAME_CONVERT = ('/opt/oracle/oradata/FREE/pdbseed', '/opt/oracle/oradata/FREE/mypdb');
 
--- 생성된 PDB ADMIN 유저가 조회된다.
-select username from dba_users where username like 'MYPDB_ADMIN';
-
 -- CDB 에 존재하는 PDB 조회. MYPDB가 MOUNTED 상태임을 확인
 SELECT name, con_id, open_mode FROM v$pdbs; 
 
@@ -200,10 +197,19 @@ GRANT CREATE TABLESPACE TO MYPDB_ADMIN;
 GRANT ALTER TABLESPACE TO MYPDB_ADMIN;
 GRANT DROP TABLESPACE TO MYPDB_ADMIN;
 
--- PDB -> CDB 컨테이너 전환
+-- 생성된 PDB 를 확인
+SELECT username, common, con_id
+FROM cdb_users
+ORDER BY con_id, username;
+
+-- CDB -> PDB 컨테이너 전환
 -- ALTER SESSION SET CONTAINER = mypdb;
 
--- CDB -> PDB
+-- 컨테이너를 PDB 로 전환하고 실행해야 MYPDB_ADMIN 유저가 검색됨.
+-- MYPDB_ADMIN 의 common 컬럼은 NO (공통유저 X)
+SELECT username, common FROM dba_users;
+
+-- PDB -> CDB
 -- ALTER SESSION SET CONTAINER = CDB$ROOT
 ```
 
@@ -233,6 +239,9 @@ SQL> SHOW con_name;
 CON_NAME
 ------------------------------------
 MYPDB
+
+SQL>select username from dba_users where username like 'MYPDB_ADMIN'; -- 생성된 PDB ADMIN 유저가 조회된다.
+
 ```
 
 <br>
@@ -358,6 +367,12 @@ PDB 생성 명령어인 `CREATE PLUGGABLE DATABASE mypdb` 의 mypdb 가 해당�
 
 이제 생성된 MYPDB_ADMIN 으로 접속, 사용할 업무용 유저를 생성, 업무용 유저로 테이블을 생성해서  
 오라클 11g 이전 버전처럼 동일하게 사용하면 된다.  MYPDB_ADMIN 은 PDB 의 SYS 인셈.  
+참고로 SYS, SYSTEM 계정은 CDB 뿐만이 아니라 PDB 생성시 공통유저로 존재하며   
+별도의 어드민을 MYPDB_ADMIN 과 같이 생성해 사용하는 것이 권장된다.  
+
+공통유저 : 컨테이너 마다 존재하지만 하나의 유저. 다만 컨테이너 단위로만 영향력을 가짐.  
+        건들지 말자. 쓸일이 없다....
+  
 <br>
 
 
