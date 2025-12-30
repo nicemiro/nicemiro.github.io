@@ -328,9 +328,11 @@ ora_sql_test.dbf  sysaux01.dbf      system01.dbf      temp01.dbf        undotbs0
 /vol/oradata/_data/FREE/mypdb #
 ```
 
-운영 서버가 아닌 개인작업시 작업이 끝나면 오라클 컨테이너를 종료해 데이터 유실을 방지한다.  
+운영 서버가 아닌 개인작업시 작업이 끝나면 오라클 컨테이너를 종료해 데이터 유실을 방지하고  
 `% docker stop oracle`
 
+다시 컨테이너를 재시작할때는 간단하게 아래와 같이 입력해 실행.  
+`% docker run oracle`
 <br>
 
 MYPDB_ADMIN 계정도 SQL Developer 커넥션을 추가해주자.
