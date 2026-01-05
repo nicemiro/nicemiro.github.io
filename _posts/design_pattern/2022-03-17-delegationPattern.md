@@ -69,7 +69,7 @@ class GameBoardDetail: DiceGameDelegate {
 <br>
 
 'GameBoard' 와 'GameBoardDetail' 을 두 개의 화면으로 보자면  
-첫 화면인 'GameBoard' 가 넘겨준 self 객체를 가지고 'GmaeBoardDetail' 화면에서 주사위 로직을 실행.  
+첫 화면인 'GameBoard' 가 넘겨준 self 객체를 가지고 'GameBoardDetail' 화면에서 주사위 로직을 실행.  
 'GameBoard' 화면에서는 본인을 넘겨주며 실행요청만 하고 정작 주사위 Roll 로직은 'GameBoardDetail' 에서 구현됨.  
 
 두 객체의 강한연결로 인한 메모리 누수를 막기위해 `weak` 키워드로 'GameBoard' 가 메모리 해제되는 시점에 'GameBoardDetail' 객체가 메모리에 남아있는 상황을 방지함. 현재 객체상에서 다른 객체를 생성 할때 self(포인터)를 넘겨준다는 것이 중요하다.  
