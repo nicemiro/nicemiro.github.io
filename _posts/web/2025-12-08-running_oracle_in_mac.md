@@ -247,7 +247,7 @@ Version 23.26.0.0.0
 SQL> show user;
 USER is "MYPDB_ADMIN"
 
-SQL> SHOW con_name;
+SQL> SELECT SYS_CONTEXT('USERENV', 'CON_NAME') AS con_name FROM dual;
 
 CON_NAME
 ------------------------------------
