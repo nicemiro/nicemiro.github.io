@@ -267,20 +267,6 @@ public String upload(MultipartFile file) {}
           fetchAddr = '/source/web.xml';
           break;
       }
-      fetch(fetchAddr)
-        .then(res => res.text())
-        .then(data => {
-          const encodedHtml = data
-            .replace(/</g, '&lt;')  
-            .replace(/>/g, '&gt;');
-
-          const newWindow = window.open();
-          newWindow.document.write(`
-          <body style='background:black; color:white;'>
-          <pre style='white-space:pre-wrap; word-wrap:break-word;'>${encodedHtml}</pre>
-          </body>
-          `);
-          newWindow.document.close();
-        });
+      window.open(fetchAddr);
     }
 </script>
