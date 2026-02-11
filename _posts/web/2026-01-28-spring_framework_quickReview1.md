@@ -154,11 +154,11 @@ mybatis 실행 엔진 생성문으로 각 설정은 사용할 DB연결 (예시�
 * `<tx:annotation-driven/>`  
 @Transactional 어노테이션을 인식하게 만드는 설정  
 
-* `<mybatis-spring:scan base-package="com.nicemiro.mapper" />`  
+* `<mybatis-spring:scan base-package="com.baby.mapper" />`  
 @Mapper 어노테이션이 사용된 interface를 찾아 자동 등록  
 설정하지 않으면 '<bean class="BoardMapper"/>' 와 같이 별도로 매퍼들을 하나하나 설정해줘야 함  
 
-* `<context:component-scan base-package="com.nicemiro.aop"/>`  
+* `<context:component-scan base-package="com.baby.aop"/>`  
 AOP 클래스 등록  
 `<aop:aspectj-autoproxy/>`  
 AOP 활성화. @Aspect
@@ -168,7 +168,7 @@ AOP 활성화. @Aspect
 #### *servlet-context.xml* &nbsp;&nbsp; <a href="/source/servlet-context.xml" target="_blank" style="color: #dc690bff; font-style: italic;">예시보기</a>  
 Spring MVC 의 웹요청 처리 부분을 담당하는 DispatcherServlet 설정  
 
-* `<context:component-scan base-package="com.nicemiro.controller"/>`   
+* `<context:component-scan base-package="com.baby.controller"/>`   
 컨트롤러 자동등록. @Controller
 
 * `<bean class="InternalResourceViewResolver">`  
