@@ -119,13 +119,12 @@ REST 서비스의 유행과 함께 프론트/백엔드의 역할을 더욱 명�
 -> 요청 대기  
 
 
-#### *pom.xml* &nbsp;&nbsp; <a href="/source/pom.xml" target="_blank" style="color: #dc690bff; font-style: italic;">예시보기</a>  
+#### *pom.xml* &nbsp;&nbsp; <a onclick="showHtmlInNewTab(0)" style="color: #dc690bff; font-style: italic;">예시보기</a>
 이클립스의 경우 프로젝트를 선택하고 마우스 우측클릭 하고 `Configure` -> `Convert to Maven Project` 를 선택해서  
 프로젝트를 Maven 프로젝트로 지정하면 위의 라이브러리들을 리스트업 할 수 있는 pom.xml 파일이 추가된다.  
 <br>
 
-
-#### *root-context.xml* &nbsp;&nbsp; <a href="/source/root-context.xml" target="_blank" style="color: #dc690bff; font-style: italic;">예시보기</a>  
+#### *root-context.xml* &nbsp;&nbsp; <a onclick="showHtmlInNewTab(1)" style="color: #dc690bff; font-style: italic;">예시보기</a>    
 스프링이 자동으로 컴포넌트를 찾아 Bean 으로 등록하고 어노테이션 기반 설정을 활성화하게 해줌  
 이 파일은 톰캣 설정파일 web.xml 에 등록해서 톰캣이 기동될 때 읽어들인다
 
@@ -165,7 +164,7 @@ AOP 활성화. @Aspect
 <br>
 <br>
 
-#### *servlet-context.xml* &nbsp;&nbsp; <a href="/source/servlet-context.xml" target="_blank" style="color: #dc690bff; font-style: italic;">예시보기</a>  
+#### *servlet-context.xml* &nbsp;&nbsp; <a onclick="showHtmlInNewTab(2)" style="color: #dc690bff; font-style: italic;">예시보기</a>  
 Spring MVC 의 웹요청 처리 부분을 담당하는 DispatcherServlet 설정  
 
 * `<context:component-scan base-package="com.baby.controller"/>`   
@@ -202,7 +201,7 @@ public String upload(MultipartFile file) {}
 ```
 <br>
 
-#### *web.xml* &nbsp;&nbsp; <a href="/source/web.xml" target="_blank" style="color: #dc690bff; font-style: italic;">예시보기</a>
+#### *web.xml* &nbsp;&nbsp; <a onclick="showHtmlInNewTab(3)" style="color: #dc690bff; font-style: italic;">예시보기</a>  
 서버(톰캣) 가 애플리케이션을 시작할 때 가장 먼저 읽는 설정  
 
 * ContextLoaderListener  
@@ -251,3 +250,37 @@ public String upload(MultipartFile file) {}
 
 <a href="https://docs.spring.io/spring-framework/reference/core/beans.html" target="_blank" style="color: rgb(68, 25, 240); font-style: italic;">https://docs.spring.io/spring-framework/reference/core/beans.html</a>
 
+<script>
+    function showHtmlInNewTab(num) {
+      let fetchAddr = '';
+      switch(num) {
+        case 0:
+          fetchAddr = '/source/pom.xml';
+          break;
+        case 1:
+          fetchAddr = '/source/root-context.xml';
+          break;
+        case 2:
+          fetchAddr = '/source/servlet-context.xml';
+          break;
+        case 3:
+          fetchAddr = '/source/web.xml';
+          break;
+      }
+      fetch(fetchAddr)
+        .then(res => res.text())
+        .then(data => {
+          const encodedHtml = data
+            .replace(/</g, '&lt;')  
+            .replace(/>/g, '&gt;');
+
+          const newWindow = window.open();
+          newWindow.document.write(`
+          <body style='background:black; color:white;'>
+          <pre style='white-space:pre-wrap; word-wrap:break-word;'>${encodedHtml}</pre>
+          </body>
+          `);
+          newWindow.document.close();
+        });
+    }
+</script>
