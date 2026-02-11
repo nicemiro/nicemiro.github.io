@@ -267,6 +267,7 @@ public String upload(MultipartFile file) {}
           fetchAddr = '/source/web.xml';
           break;
       }
-      window.open(fetchAddr);
+      const newWindow = window.open();
+      newWindow.location = fetchAddr;
     }
 </script>
