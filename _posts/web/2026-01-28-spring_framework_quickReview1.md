@@ -1,5 +1,5 @@
 ---
-title: 스프링 프레임워크 핵심 정리 1 (설정)
+title: 스프링 프레임워크 핵심 정리 1 (XML설정)
 titleEn: 
 author: BabyK
 date: 2026-02-07
@@ -89,6 +89,17 @@ REST 서비스의 유행과 함께 프론트/백엔드의 역할을 더욱 명�
 
 `DispatcherServlet` - 클라이언트가 브라우저에서 요청한 주소를 가지고 @Controller 에 작성된 매핑 주소 ( @GetMapping("/board/list") ) 와 연결한다.  
 실제 DispatcherServlet 은 요청 연결부터 ViewResolver 의 과정까지 모든 웹 처리의 모든 흐름을 관리한다.  
+
+조금더 정확하게 설명하면 스프링 개발에 사용되는 톰캣은 서버의 기능이 추가된 Servlet 이고    
+HTTP 요청은 브라우져에서 톰캣(서블릿) 에 의해 전달될 서블릿이 결정된다.  
+<a onclick="showHtmlInNewTab(3)" style="color: #dc690bff; font-style: italic;">Web.xml</a> 파일을 열어보면 servlet-class 에 스프링의 DispatcherServlet 이 명시되어 있다.  
+
+  
+`<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>`  
+  
+웹은 HTTP 프로토콜로 통신되고 서블릿의 역할은 서버의 맨 앞에서 HTTP 요청을 받아 자바 코드로 변환해 DispatcherServlet 으로 넘겨주고 서버에서 처리된 요청을 HTTP 응답으로 만들어 내보내는 역할이라고 볼 수 있다.  
+
+프론트와 백엔드가 완전히 분리된 구조에서는 톰캣은 REST 백엔드 서버의 입구 역할을 하고 프론트에서 화면단의 파일들을 전송해주는 Nginx 와 같은 프론트 서버를 별도로 구성하게 되는 경우가 많다.  
 <br>
 <br>
 
