@@ -98,8 +98,23 @@ HTTP 요청은 브라우져에서 톰캣(서블릿) 에 의해 전달될 서블�
 `<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>`  
   
 웹은 HTTP 프로토콜로 통신되고 서블릿의 역할은 서버의 맨 앞에서 HTTP 요청을 받아 자바 코드로 변환해 DispatcherServlet 으로 넘겨주고 서버에서 처리된 요청을 HTTP 응답으로 만들어 내보내는 역할이라고 볼 수 있다.  
+사실 DispatcherServlet 이 없이도 (즉 스프링을 사용하지 않고도) 톰캣은 서블릿 컨테이너로 작동해 각 서블릿 (컨트롤러에 매핑된 주소들) 을 호출하는 아래와 같은 방식의 웹서버로 작동할 수 있다.  
 
-프론트와 백엔드가 완전히 분리된 구조에서는 톰캣은 REST 백엔드 서버의 입구 역할을 하고 프론트에서 화면단의 파일들을 전송해주는 Nginx 와 같은 프론트 서버를 별도로 구성하게 되는 경우가 많다.  
+```Java
+// /users 요청 -> UserServlet 실행
+@WebServlet("/users")
+public class UserServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp) {
+        resp.getWriter().write("user list");
+    }
+}
+```
+
+하지만 이러한 방식은 프로젝트가 커질수록 각 매핑된 서블릿의 숫자가 늘어나고 코드 중복이 많아지면서 관리가 어려워지기 때문에 스프링 프레임워크를 사용해 모든 요청을 DispatcherServlet 하나로 수신해 Controller 내부로 분배해주는 지금의 구조가 만들어졌다.  
+
+프론트와 백엔드가 완전히 분리된 요즘 실무구조에서는 톰캣이 REST 백엔드 서버의 입구 역할을 하고 프론트에서는 클라이언트에게 정적 파일들을 전송해주는 Nginx 와 같은 프론트 서버를 별도로 구성하는 케이스가 많다.  
 <br>
 <br>
 
